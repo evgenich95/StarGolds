@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="97dp">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Up"
+            android:id="@+id/buttonUp"
+            android:layout_above="@+id/buttonDown"
+            android:layout_alignRight="@+id/buttonDown"
+            android:layout_alignEnd="@+id/buttonDown"
+            android:layout_toRightOf="@+id/buttonLeft"
+            android:layout_toEndOf="@+id/buttonLeft" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Down"
+            android:id="@+id/buttonDown"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/buttonLeft"
+            android:layout_toEndOf="@+id/buttonLeft" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Left"
+            android:id="@+id/buttonLeft"
+            android:layout_below="@+id/buttonUp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Right"
+            android:id="@+id/buttonRight"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/buttonDown"
+            android:layout_toEndOf="@+id/buttonDown" />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/recycler_view"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

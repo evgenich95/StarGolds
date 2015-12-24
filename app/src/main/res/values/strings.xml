@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Game</string>
+    <string name="goldcounter">goldCounter</string>
+    <string name="gameOver">Game Over! :(</string>
+    <string name="repeatGame">Сыграть ещё раз</string>
+    <string name="exitGame">Выход</string>
+    <string name="chooseProperties">Выбирите режим карты</string>
+    <string name="ok_button_begin_play">Custom</string>
+    <string name="default_map">Default</string>
+    <string name="begin_game">Начать игру</string>
+    <string name="size_map">Размер карты</string>
+    <string name="set_map_properties">Задайте характеристику карты</string>
+    <string name="bluster">bluster</string>
+
+</resources>
