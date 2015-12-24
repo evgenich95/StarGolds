@@ -100,8 +100,6 @@ public class Map {
             return false;
 
         int place = arrayMap[position.getRow()][position.getColumn()];
-
-
         if (place != PitID && place != RobotISFreezed) {
             if (place == GoldID)
                 goldFound++;
@@ -116,13 +114,10 @@ public class Map {
 
             amountPlayerSteps++;
 
-
             return true;
         }
 
-
         return false;
-
     }
 
 
@@ -154,11 +149,7 @@ public class Map {
         ArrayList<Coordinate> offsets = new ArrayList<>(neighborOffsets);
 
         ArrayList<Coordinate> way = MapGenerator.FindShortWay(playerPosition, coordinate, arrayMap); // ищем
-        // путь
-        // от
-        // робота
-        // до
-        // игрока
+        // путь от робота до игрока
 
         if (way.size() > 0) {
             target = way.get(0);
