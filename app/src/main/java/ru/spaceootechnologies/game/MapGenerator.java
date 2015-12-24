@@ -23,8 +23,6 @@ public class MapGenerator {
 
     public static final String ConsoleLog = "Смотреть сюда";
 
-
-
     private int mapSize;
     private int robotAmount;
     private int goldAmount;
@@ -218,7 +216,7 @@ public class MapGenerator {
             inStackCoordinate.remove(0);
 
             if (inStackCoordinate.size() == 0)
-                return ShortWay;
+                return ShortWay;//++
 
 
             currentPosition = (Coordinate) inStackCoordinate.get(0).clone();
