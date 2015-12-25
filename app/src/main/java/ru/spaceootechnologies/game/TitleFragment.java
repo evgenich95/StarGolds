@@ -61,7 +61,7 @@ public class TitleFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        defaultMapSize = 10;
+        defaultMapSize = 3;
         defaultGoldCount = 7;
         defaultRobotCount = 3;
         defaultPitCount = 10;

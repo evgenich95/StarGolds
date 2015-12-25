@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -43,6 +44,9 @@ public class MainFragment extends Fragment {
     public static final int REQUEST_GameDialog = 0;
     public static final String AFTER_GAME_DIALOG_Fragment = "AfterGameDialogFragment";
 
+    public static final String MAP_RESIZE_DOALOG_FRAGMENT = "MapResizeDialogFragment";
+    public static final int REQUEST_MapResizeDialogFragment = 1;
+
     private static final int n = 5;
     private Map mMap;
 
@@ -56,7 +60,9 @@ public class MainFragment extends Fragment {
     private int pitAmount;
 
 
-    public static MainFragment newInstance(Intent data) {
+
+
+    public static MainFragment newInstance(Intent data)  {
 
         Bundle args = new Bundle();
 
@@ -81,30 +87,17 @@ public class MainFragment extends Fragment {
 
     static class ViewFragmentHolder {
 
-        @Bind(R.id.buttonDown)
-        ImageButton ButtonDown;
-        @Bind(R.id.buttonUp)
-        ImageButton ButtonUp;
-        @Bind(R.id.buttonLeft)
-        ImageButton ButtonLeft;
-        @Bind(R.id.buttonRight)
-        ImageButton ButtonRight;
-        @Bind(R.id.recycler_view)
-        RecyclerView mRecyclerView;
-        @Bind(R.id.imageViewBluster)
-        ImageView imageViewBluster;
-        @BindDrawable(R.drawable.enable_blaster)
-        Drawable enable_blaster_false;
-        @BindDrawable(R.drawable.blaster)
-        Drawable enable_blaster_true;
-        @Bind(R.id.imageViewShape1)
-        ImageView imageViewShape1;
-        @Bind(R.id.imageViewShape2)
-        ImageView imageViewShape2;
-        @Bind(R.id.imageViewShape3)
-        ImageView imageViewShape3;
-        @Bind(R.id.relativeBlasterBlock)
-        RelativeLayout relativeBlasterBlock;
+        @Bind(R.id.buttonDown) ImageButton ButtonDown;
+        @Bind(R.id.buttonUp) ImageButton ButtonUp;
+        @Bind(R.id.buttonLeft) ImageButton ButtonLeft;
+        @Bind(R.id.buttonRight) ImageButton ButtonRight;
+        @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
+        @Bind(R.id.imageViewBluster) ImageView imageViewBluster;
+            @BindDrawable(R.drawable.enable_blaster) Drawable enable_blaster_false;
+            @BindDrawable(R.drawable.blaster) Drawable enable_blaster_true;
+        @Bind(R.id.imageViewShape1) ImageView imageViewShape1;@Bind(R.id.imageViewShape2) ImageView imageViewShape2;
+        @Bind(R.id.imageViewShape3) ImageView imageViewShape3;
+        @Bind(R.id.relativeBlasterBlock) RelativeLayout relativeBlasterBlock;
         List<View> listPatron;
         List<View> listButtons;
 
@@ -149,6 +142,32 @@ public class MainFragment extends Fragment {
         this.goldAmount = (int) args.getInt(TitleFragment.AMOUNT_GOLD_KEY);
         this.pitAmount = (int) args.getInt(TitleFragment.AMOUNT_PIT_KEY);
 
+
+
+
+
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != getActivity().RESULT_OK)
+            return;
+        if (requestCode == REQUEST_GameDialog) {
+            boolean playAgain = (Boolean) data.getSerializableExtra(GameDialogFragment.PLAY_AGAIN);
+            if (playAgain)
+                updateUI();
+            else
+                getActivity().finish();
+        }
+        if (requestCode == REQUEST_MapResizeDialogFragment) {
+            boolean reCreateMap = (Boolean) data.getSerializableExtra(MapResizeDialogFragment.RECREATE_MAP);
+            if (reCreateMap)
+                updateUI();
+            else
+                getActivity().finish();
+        }
+
     }
 
 
@@ -170,22 +189,6 @@ public class MainFragment extends Fragment {
 
     }
 
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != getActivity().RESULT_OK)
-            return;
-        if (requestCode == REQUEST_GameDialog) {
-            boolean playAgain = (Boolean) data.getSerializableExtra(GameDialogFragment.PLAY_AGAIN);
-            if (playAgain)
-                updateUI();
-            else
-                getActivity().finish();
-
-        }
-
-    }
-
     private void UpdateGameStatus() {
         UpdateGoldStatus();
 
@@ -198,16 +201,18 @@ public class MainFragment extends Fragment {
 
         if (mMap.getAmoutGold() == mMap.getGoldFound()) {
             DidWin = true;
-            notifyMessage = (" Вы выйграли!!! Вы сделали "
-                    + String.valueOf(mMap.getAmountPlayerSteps()) + " шагов и собрали "
-                    + String.valueOf(mMap.getGoldFound()) + " золота");
+            notifyMessage = (" Вы выйграли!!!\n");
         }
 
         if (mMap.isGameOver() == true) {
             DidWin = false;
-            notifyMessage = " Вы проиграли!!! :(";
+            notifyMessage = " Вы проиграли!!! :(\n";
 
         }
+
+        notifyMessage+="Вы сделали: "
+                + String.valueOf(mMap.getAmountPlayerSteps()) + " шагов\nВы собрали золота: "
+                + String.valueOf(mMap.getGoldFound()) + "/" + String.valueOf(mMap.getAmoutGold());
 
         FragmentManager manager = getFragmentManager();
         GameDialogFragment dialog = GameDialogFragment.newInstance(notifyMessage, DidWin);
@@ -316,11 +321,25 @@ public class MainFragment extends Fragment {
 
     public void updateUI() {
 
+        //Создадим диалог, на случай если карта не сможешт создаться
+        FragmentManager manager = getFragmentManager();
+        MapResizeDialogFragment dialog = new MapResizeDialogFragment();
+        dialog.setTargetFragment(MainFragment.this, REQUEST_MapResizeDialogFragment);
+
+
+
+
+
+
+
+
         mMap = new MapGenerator(mapSize, robotAmount, goldAmount, pitAmount).getMap();
         if (mMap == null) {
+            dialog.show(manager, MAP_RESIZE_DOALOG_FRAGMENT);
             // вывести диалог --> либо карта создастся с новыми характеристиками либо ещё раз
             // распределится по старой
         }
+        Log.e(Map.ConsoleLog, "Работаем дальше после диалога");
         mAdapter = new MapAdapter(getActivity(), mMap.getArrayMap());
         viewFragmentHolder.mRecyclerView.setAdapter(mAdapter);
 

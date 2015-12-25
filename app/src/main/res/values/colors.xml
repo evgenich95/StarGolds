@@ -11,5 +11,8 @@
     <color name="colorBlue">#0f16e9</color>
     <color name="colorGold">#fffc46</color>
     <color name="purpur">#6D00D1</color>
+    <color name="gameOverText">#DDDA13</color>
+    <color name="gameOverBaground">#A30004</color>
+
 
 </resources>
