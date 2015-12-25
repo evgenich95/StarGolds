@@ -144,8 +144,6 @@ public class MainFragment extends Fragment {
 
 
 
-
-
     }
 
 
@@ -161,7 +159,8 @@ public class MainFragment extends Fragment {
                 getActivity().finish();
         }
         if (requestCode == REQUEST_MapResizeDialogFragment) {
-            boolean reCreateMap = (Boolean) data.getSerializableExtra(MapResizeDialogFragment.RECREATE_MAP);
+            boolean reCreateMap =
+                    (Boolean) data.getSerializableExtra(MapResizeDialogFragment.RECREATE_MAP);
             if (reCreateMap)
                 updateUI();
             else
@@ -210,9 +209,9 @@ public class MainFragment extends Fragment {
 
         }
 
-        notifyMessage+="Вы сделали: "
-                + String.valueOf(mMap.getAmountPlayerSteps()) + " шагов\nВы собрали золота: "
-                + String.valueOf(mMap.getGoldFound()) + "/" + String.valueOf(mMap.getAmoutGold());
+        notifyMessage += "Вы сделали: " + String.valueOf(mMap.getAmountPlayerSteps())
+                + " шагов\nВы собрали золота: " + String.valueOf(mMap.getGoldFound()) + "/"
+                + String.valueOf(mMap.getAmoutGold());
 
         FragmentManager manager = getFragmentManager();
         GameDialogFragment dialog = GameDialogFragment.newInstance(notifyMessage, DidWin);
@@ -223,8 +222,17 @@ public class MainFragment extends Fragment {
 
     @NonNull
     private void UpdateGoldStatus() {
-        String goldStatus =
-                String.valueOf(mMap.getGoldFound()) + " / " + String.valueOf(mMap.getAmoutGold());
+        int GoldFound;
+        int AllGold;
+        if (mMap == null) {
+            GoldFound = 0;
+            AllGold = 0;
+        } else {
+            GoldFound = mMap.getGoldFound();
+            AllGold = mMap.getAmoutGold();
+        }
+
+        String goldStatus = String.valueOf(GoldFound) + " / " + String.valueOf(AllGold);
         if (goldCounter == null)
             return;
         goldCounter.setText(goldStatus);
@@ -321,25 +329,17 @@ public class MainFragment extends Fragment {
 
     public void updateUI() {
 
-        //Создадим диалог, на случай если карта не сможешт создаться
+        // Создадим диалог, на случай если карта не сможешт создаться
         FragmentManager manager = getFragmentManager();
         MapResizeDialogFragment dialog = new MapResizeDialogFragment();
         dialog.setTargetFragment(MainFragment.this, REQUEST_MapResizeDialogFragment);
 
-
-
-
-
-
-
-
         mMap = new MapGenerator(mapSize, robotAmount, goldAmount, pitAmount).getMap();
         if (mMap == null) {
             dialog.show(manager, MAP_RESIZE_DOALOG_FRAGMENT);
-            // вывести диалог --> либо карта создастся с новыми характеристиками либо ещё раз
-            // распределится по старой
+            return;
         }
-        Log.e(Map.ConsoleLog, "Работаем дальше после диалога");
+
         mAdapter = new MapAdapter(getActivity(), mMap.getArrayMap());
         viewFragmentHolder.mRecyclerView.setAdapter(mAdapter);
 
