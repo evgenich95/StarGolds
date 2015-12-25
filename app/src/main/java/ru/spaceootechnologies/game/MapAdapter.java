@@ -24,16 +24,12 @@ public class MapAdapter extends RecyclerView.Adapter<MapItemViewHolder> {
     private int sizeMap;
     private Context context;
 
-    int rowPosition, columnPosition;
     private int[][] arrayMap;
 
     public MapAdapter(Context context, int[][] arrayMap) {
         this.context = context;
         this.arrayMap = arrayMap;
         sizeMap = arrayMap.length * arrayMap[0].length;
-
-
-
     }
 
     @Override
@@ -77,7 +73,6 @@ public class MapAdapter extends RecyclerView.Adapter<MapItemViewHolder> {
                 holder.image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.pit));
                 holder.image
                         .setBackgroundColor(ContextCompat.getColor(context, R.color.colorWhite));
-                // holder.image.setImageResource(R.drawable.pit);
                 break;
             case EmptyId: // проход
                 holder.image.setImageDrawable(null);
@@ -92,9 +87,6 @@ public class MapAdapter extends RecyclerView.Adapter<MapItemViewHolder> {
             default:
                 break;
         }
-
-
-
     }
 
     public void UpdateMap(List<Integer> listUpdates, int[][] array) {
@@ -108,11 +100,5 @@ public class MapAdapter extends RecyclerView.Adapter<MapItemViewHolder> {
         this.arrayMap = array;
 
         notifyDataSetChanged();
-
-
-
     }
-
-
-
 }

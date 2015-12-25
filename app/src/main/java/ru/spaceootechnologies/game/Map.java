@@ -58,8 +58,6 @@ public class Map implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
 
-
-
         dest.writeSerializable(arrayMap);
         dest.writeInt(sizeMap);
         dest.writeInt(amountGold);
@@ -69,7 +67,6 @@ public class Map implements Parcelable {
         dest.writeInt(amountPlayerSteps);
         dest.writeValue(GameOver);
         dest.writeSerializable(frezenRobots);
-
     }
 
     private Map(Parcel in) {
@@ -112,7 +109,6 @@ public class Map implements Parcelable {
 
         this.amountFreezenStep = 5;
         this.frezenRobots = new HashMap<ArrayList<Coordinate>, Integer>();
-
 
     }
 

@@ -31,7 +31,6 @@ public class MapResizeDialogFragment extends DialogFragment {
 
     }
 
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -60,15 +59,13 @@ public class MapResizeDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         SendResult(getActivity().RESULT_OK, true);
                     }
-                }).setNegativeButton(R.string.changeMapProperties, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        SendResult(getActivity().RESULT_OK, false);
-                    }
-                }).create();
-
-
+                }).setNegativeButton(R.string.changeMapProperties,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SendResult(getActivity().RESULT_OK, false);
+                            }
+                        })
+                .create();
     }
-
-
 }

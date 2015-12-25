@@ -15,7 +15,7 @@ public class Coordinate extends Object implements Cloneable, Parcelable {
     private int column;
 
 
-    //Реализация интерфейса Parcelable
+    // Реализация интерфейса Parcelable
     @Override
     public int describeContents() {
         return 0;
@@ -45,9 +45,9 @@ public class Coordinate extends Object implements Cloneable, Parcelable {
             return new Coordinate[size];
         }
     };
-    
-    //Конец реализации
-    
+
+    // Конец реализации
+
 
     public Coordinate(int x, int y) {
         row = x;

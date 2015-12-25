@@ -13,15 +13,12 @@ import java.util.Random;
 public class MapGenerator {
 
     public static final int RobotId = MainFragment.RobotId;
-    public static final int RobotISFreezed = MainFragment.RobotISFreezed;
     public static final int PlayerId = MainFragment.PlayerId;
     public static final int GoldID = MainFragment.GoldID;
     public static final int PitID = MainFragment.PitID;
     public static final int EmptyId = MainFragment.EmptyId;
 
     private Map mMap;
-
-    public static final String ConsoleLog = "Смотреть сюда";
 
     private int mapSize;
     private int robotAmount;
@@ -35,8 +32,6 @@ public class MapGenerator {
         this.robotAmount = robotAmount;
         this.goldAmount = goldAmount;
         this.pitAmount = pitAmount;
-
-
     }
 
     public Map getMap() {
@@ -62,10 +57,10 @@ public class MapGenerator {
 
 
         if (allCoordinates.size() <= 1) {
-            // Вывести диалог о ошибке
             return;
 
         }
+
         // Помещаем игрока
 
         Coordinate playerPosition = new Coordinate(mapSize / 2, mapSize / 2);
@@ -75,33 +70,25 @@ public class MapGenerator {
 
 
         if (allCoordinates.size() < goldAmount) {
-            Log.e(ConsoleLog, "Нет места для  золота");
             return;
         }
 
         ArrayList<Coordinate> GoldtCanPlace = (ArrayList<Coordinate>) allCoordinates.clone();
-
-
 
         // ЗОЛОТО!!
         for (int i = 0; i < goldAmount; i++) {
             Coordinate place = GoldtCanPlace.get(new Random().nextInt(GoldtCanPlace.size()));
 
             arrayMap[place.getRow()][place.getColumn()] = GoldID;
-            placesOfGold.add(place);
+            placesOfGold.add(place);    // список где стоят золото
             GoldtCanPlace.remove(place);
-
-
         }
-
 
         for (Coordinate cord : placesOfGold) {
             allCoordinates.removeAll(FindShortWay(cord, playerPosition, arrayMap));
         }
 
-
         if (allCoordinates.size() < robotAmount) {
-            Log.e(ConsoleLog, "Нет места для  Роботов");
             return;
         }
 
@@ -130,7 +117,6 @@ public class MapGenerator {
         }
 
         if (allCoordinates.size() < pitAmount) {
-            Log.e(ConsoleLog, "Нет места для  ям");
             return;
         }
 
@@ -141,7 +127,7 @@ public class MapGenerator {
             Coordinate place = pitCanPlace.get(new Random().nextInt(pitCanPlace.size()));
             arrayMap[place.getRow()][place.getColumn()] = PitID;
 
-            placesForPit.add(place); // список где стоят роботы
+            placesForPit.add(place); // список где стоят ямы
 
             pitCanPlace.remove(place);
 
@@ -151,11 +137,10 @@ public class MapGenerator {
         mMap = new Map(arrayMap, playerPosition, goldAmount);
     }
 
-
-
     public static ArrayList<Coordinate> FindShortWay(Coordinate fromPoint, Coordinate targetPoint,
             int[][] arrayMap) {
-
+        
+        //формируем массив разметки
         int[][] temp = new int[arrayMap.length][arrayMap[0].length];
 
         for (int i = 0; i < arrayMap.length; i++) {
@@ -180,6 +165,7 @@ public class MapGenerator {
         int IdTarget = arrayMap[targetPoint.getRow()][targetPoint.getColumn()];
         int IdFrom = arrayMap[fromPoint.getRow()][fromPoint.getColumn()];
 
+        //начинаем разметку карты в ширину
         while (!currentPosition.equals(targetPoint) && inStackCoordinate.size() > 0) {
 
 
@@ -216,13 +202,16 @@ public class MapGenerator {
             inStackCoordinate.remove(0);
 
             if (inStackCoordinate.size() == 0)
-                return ShortWay;//++
+                return ShortWay;// значит путь не найден
 
-
-            currentPosition = (Coordinate) inStackCoordinate.get(0).clone();
+            currentPosition = (Coordinate) inStackCoordinate.get(0).clone(); // текущая позиция
+                                                                             // верхняя вершина
+                                                                             // стека
 
         }
 
+        //Формируем путь по разметке
+        //Путь обязательно будет существовать
         currentPosition = (Coordinate) targetPoint.clone();
         temp[fromPoint.getRow()][fromPoint.getColumn()] = 0;
 

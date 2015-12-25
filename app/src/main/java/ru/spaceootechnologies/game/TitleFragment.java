@@ -76,7 +76,7 @@ public class TitleFragment extends Fragment {
 
         View v = layoutInflater.inflate(R.layout.title_fragment, container, false);
 
-        viewFragmentHolder = new ViewFragmentHolder(v);
+       viewFragmentHolder = new ViewFragmentHolder(v);
         v.setTag(viewFragmentHolder);
 
         getActivity().setTitle(R.string.set_map_properties);
@@ -96,7 +96,7 @@ public class TitleFragment extends Fragment {
         viewFragmentHolder.numberPickerRobot.setWrapSelectorWheel(false);
         viewFragmentHolder.numberPickerRobot.setValue(defaultRobotCount);
 
-        viewFragmentHolder.numberPickerMapSize.setMinValue(0);
+        viewFragmentHolder.numberPickerMapSize.setMinValue(2);
         viewFragmentHolder.numberPickerMapSize.setMaxValue(100);
         viewFragmentHolder.numberPickerMapSize.setWrapSelectorWheel(false);
         viewFragmentHolder.numberPickerMapSize.setValue(defaultMapSize);

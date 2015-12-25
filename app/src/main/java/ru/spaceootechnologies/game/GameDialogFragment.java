@@ -24,6 +24,7 @@ public class GameDialogFragment extends DialogFragment {
     public static final String PLAY_AGAIN = "booleanPlayAgain";
 
     private TextView notify;
+
     public static GameDialogFragment newInstance(String notifyMessage, boolean DidWin) {
 
         Bundle args = new Bundle();
@@ -51,7 +52,6 @@ public class GameDialogFragment extends DialogFragment {
         notify = new TextView(getActivity());
         notify.setText(getArguments().getString(NOTIFY_MESSAGE));
         notify.setGravity(Gravity.CENTER_HORIZONTAL);
-        // notify.
         notify.setTextSize(25);
         ActionBar.LayoutParams params = new ActionBar.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -66,12 +66,10 @@ public class GameDialogFragment extends DialogFragment {
         if (getArguments().getBoolean(DID_WIN)) {
             ll.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorGreen2));
 
-        }
-        else {
+        } else {
             notify.setTextColor(ContextCompat.getColor(getActivity(), R.color.gameOverText));
             ll.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.gameOverBaground));
         }
-
 
 
 
