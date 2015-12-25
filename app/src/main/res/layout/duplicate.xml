@@ -14,7 +14,7 @@
         android:fillViewport="true"
         >
 
-        <HorizontalScrollView
+        <VerticalScrollView
             android:layout_width="700px"
             android:layout_height="700px"
             android:id="@+id/scrollView"
@@ -29,7 +29,7 @@
                 android:background="@color/colorDark">
 
             </android.support.v7.widget.RecyclerView>
-        </HorizontalScrollView>
+        </VerticalScrollView>
     </ScrollView>
 
     <RelativeLayout
