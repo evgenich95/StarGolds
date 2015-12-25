@@ -48,10 +48,8 @@ public class MainFragment extends Fragment {
 
     private static final String Key_mMap_For_Parceble = "mMap in Parceble";
     private static final String Key_ListPotron_For_Serializable = "ListPotron in Serializable";
-    private static final String Key_blasterIsWork_For_Bundle = "Key_blasterIsWork";
 
-    private ArrayList<View> potronList;
-    private boolean blasterIsWork;
+    private ArrayList<View> savedPatrons;
     private boolean restartGame;
 
     private Map mMap;
@@ -134,8 +132,6 @@ public class MainFragment extends Fragment {
             relativeBlasterBlock.setEnabled(true);
             imageViewBluster.setImageDrawable(enable_blaster_true);
 
-
-
         }
 
         public void UpdateBlasterState(ArrayList<View> potronList) {
@@ -143,7 +139,7 @@ public class MainFragment extends Fragment {
             if (potronList == null)
                 return;
 
-            // Объекты, которые находятся в LlistPatron и в potronList, имеют одинаковые ID
+            // Объекты, которые находятся в LlistPatron и в savedPatrons  имеют одинаковые ID
             // но это объекты разные => не работает метод equals()
 
             listPatron = new ArrayList<>();
@@ -192,11 +188,8 @@ public class MainFragment extends Fragment {
                 relativeBlasterBlock.setEnabled(false);
                 imageViewBluster.setImageDrawable(enable_blaster_false);
             }
-
-
         }
     }
-
 
 
     @Override
@@ -213,14 +206,12 @@ public class MainFragment extends Fragment {
         this.pitAmount = (int) args.getInt(TitleFragment.AMOUNT_PIT_KEY);
 
         getActivity().setTitle("");
-        blasterIsWork=true;
         restartGame =false;
 
 
         if (savedInstanceState!=null){
            mMap = savedInstanceState.getParcelable(Key_mMap_For_Parceble);
-            this.potronList = ( ArrayList<View>) savedInstanceState.getSerializable(Key_ListPotron_For_Serializable);
-            this.blasterIsWork = savedInstanceState.getBoolean(Key_blasterIsWork_For_Bundle);
+            this.savedPatrons = ( ArrayList<View>) savedInstanceState.getSerializable(Key_ListPotron_For_Serializable);
         }
 
 
@@ -231,7 +222,6 @@ public class MainFragment extends Fragment {
 
         outState.putParcelable(Key_mMap_For_Parceble,mMap);
         outState.putSerializable(Key_ListPotron_For_Serializable, viewFragmentHolder.listPatron);
-        outState.putBoolean(Key_blasterIsWork_For_Bundle,blasterIsWork);
 
         super.onSaveInstanceState(outState);
 
@@ -309,7 +299,6 @@ public class MainFragment extends Fragment {
 
     private void UpdateGameStatus() {
         UpdateGoldStatus();
-
 
         if (mMap.getAmoutGold() != mMap.getGoldFound() && mMap.isGameOver() != true)
             return;
@@ -415,40 +404,33 @@ public class MainFragment extends Fragment {
                         break;
                 }
 
-
                 if (mMap.MovePlayer(newPosition))
                     mMap.MoveAllRobots();
 
                 List listUpdates = Helper.DetectUpdates(oldMap, mMap.getArrayMap());
                 mAdapter.UpdateMap(listUpdates, mMap.getArrayMap());
 
-                viewFragmentHolder.UpdateBlasterState(potronList);
+                viewFragmentHolder.UpdateBlasterState(savedPatrons);
                 UpdateGameStatus();
 
             }
-
-
         };
 
 
         // Упростить в конце если не понадобится
-        for (View button : viewFragmentHolder.listButtons
-
-        ) {
+        for (View button : viewFragmentHolder.listButtons) {
             button.setOnClickListener(onNavigateClick);
-
         }
 
         updateUI();
-
-
+        
         return v;
     }
 
     public void updateUI() {
 
-        if (mMap==null|| restartGame) { //если карта ранее не была создана, или игрок хочет сыграть заново,  то генерируем её
-
+        if (mMap == null || restartGame) { // если карта ранее не была создана, или игрок хочет
+                                           // сыграть заново, то генерируем её
 
             viewFragmentHolder.GetReadyForNewGame();
 
@@ -464,19 +446,15 @@ public class MainFragment extends Fragment {
                 return;
             }
         }
-        //иначе испульзуем уже существующую, которую нам вернул метод onSaveInstanceState
+        // иначе испульзуем уже существующую, которую нам вернул метод onSaveInstanceState
 
         mAdapter = new MapAdapter(getActivity(), mMap.getArrayMap());
         viewFragmentHolder.mRecyclerView.setAdapter(mAdapter);
 
-        viewFragmentHolder.UpdateBlasterState(potronList);
-        if (potronList!=null) potronList=null;
+        viewFragmentHolder.UpdateBlasterState(savedPatrons);
+        if (savedPatrons != null)
+            savedPatrons = null;
         UpdateGameStatus();
-
     }
-
-
-
-
 }
 
