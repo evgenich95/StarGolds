@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Game</string>
+    <string name="app_name">Star Golds</string>
     <string name="goldcounter">goldCounter</string>
     <string name="gameOver">Game Over! :(</string>
     <string name="repeatGame">Сыграть ещё раз</string>

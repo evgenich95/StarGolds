@@ -61,8 +61,8 @@ public class TitleFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        defaultMapSize = 3;
-        defaultGoldCount = 7;
+        defaultMapSize = 10;
+        defaultGoldCount = 1;
         defaultRobotCount = 3;
         defaultPitCount = 10;
     }
@@ -81,7 +81,7 @@ public class TitleFragment extends Fragment {
 
         getActivity().setTitle(R.string.set_map_properties);
 
-        viewFragmentHolder.numberPickerGold.setMinValue(0);
+        viewFragmentHolder.numberPickerGold.setMinValue(1);
         viewFragmentHolder.numberPickerGold.setMaxValue(100);
         viewFragmentHolder.numberPickerGold.setWrapSelectorWheel(false);
         viewFragmentHolder.numberPickerGold.setValue(defaultGoldCount);

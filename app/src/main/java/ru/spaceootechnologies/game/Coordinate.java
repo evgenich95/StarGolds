@@ -1,12 +1,53 @@
 package ru.spaceootechnologies.game;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
+
+import java.util.Date;
+
 /**
  * Created by Anton on 19.12.2015.
  */
-public class Coordinate extends Object implements Cloneable {
+public class Coordinate extends Object implements Cloneable, Parcelable {
 
     private int row;
     private int column;
+
+
+    //Реализация интерфейса Parcelable
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(row);
+        dest.writeInt(column);
+    }
+
+    private Coordinate(Parcel in) {
+
+        this.row = in.readInt();
+        this.column = in.readInt();
+
+    }
+
+    public static final Creator<Coordinate> CREATOR = new Creator<Coordinate>() {
+        @Override
+        public Coordinate createFromParcel(Parcel source) {
+            return new Coordinate(source);
+        }
+
+        @Override
+        public Coordinate[] newArray(int size) {
+            return new Coordinate[size];
+        }
+    };
+    
+    //Конец реализации
+    
 
     public Coordinate(int x, int y) {
         row = x;

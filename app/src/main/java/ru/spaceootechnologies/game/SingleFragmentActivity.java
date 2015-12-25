@@ -12,6 +12,8 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
 
     protected abstract Fragment createFragment();
 
+    protected abstract String getTag();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +22,12 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
         Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
         if (fragment == null) {
             fragment = createFragment();
-            fm.beginTransaction().add(R.id.fragmentContainer, fragment).commit();
+//            fm.saveFragmentInstanceState(fragment);
+            fm
+
+                    .beginTransaction()
+                    .add(R.id.fragmentContainer, fragment, getTag())
+                    .commit();
         }
 
     }

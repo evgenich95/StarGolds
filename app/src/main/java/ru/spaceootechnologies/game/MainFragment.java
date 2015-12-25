@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -47,7 +46,14 @@ public class MainFragment extends Fragment {
     public static final String MAP_RESIZE_DOALOG_FRAGMENT = "MapResizeDialogFragment";
     public static final int REQUEST_MapResizeDialogFragment = 1;
 
-    private static final int n = 5;
+    private static final String Key_mMap_For_Parceble = "mMap in Parceble";
+    private static final String Key_ListPotron_For_Serializable = "ListPotron in Serializable";
+    private static final String Key_blasterIsWork_For_Bundle = "Key_blasterIsWork";
+
+    private ArrayList<View> potronList;
+    private boolean blasterIsWork;
+    private boolean restartGame;
+
     private Map mMap;
 
     private MapAdapter mAdapter;
@@ -58,9 +64,6 @@ public class MainFragment extends Fragment {
     private int robotAmount;
     private int goldAmount;
     private int pitAmount;
-
-
-
 
     public static MainFragment newInstance(Intent data)  {
 
@@ -95,11 +98,12 @@ public class MainFragment extends Fragment {
         @Bind(R.id.imageViewBluster) ImageView imageViewBluster;
             @BindDrawable(R.drawable.enable_blaster) Drawable enable_blaster_false;
             @BindDrawable(R.drawable.blaster) Drawable enable_blaster_true;
-        @Bind(R.id.imageViewShape1) ImageView imageViewShape1;@Bind(R.id.imageViewShape2) ImageView imageViewShape2;
+        @Bind(R.id.imageViewShape1) ImageView imageViewShape1;
+        @Bind(R.id.imageViewShape2) ImageView imageViewShape2;
         @Bind(R.id.imageViewShape3) ImageView imageViewShape3;
         @Bind(R.id.relativeBlasterBlock) RelativeLayout relativeBlasterBlock;
-        List<View> listPatron;
-        List<View> listButtons;
+        ArrayList<View> listPatron;
+        ArrayList<View> listButtons;
 
 
         public ViewFragmentHolder(View view) {
@@ -112,28 +116,94 @@ public class MainFragment extends Fragment {
             listButtons.add(ButtonRight);
             listButtons.add(relativeBlasterBlock);
 
+
         }
 
-        public void UpdateListPotron() {
+        public void GetReadyForNewGame() {
+            listPatron = new ArrayList<>();
+
+            listPatron.add(imageViewShape1);
+            listPatron.add(imageViewShape2);
+            listPatron.add(imageViewShape3);
+
+            for (View patron : listPatron) {
+                patron.setVisibility(View.VISIBLE);
+            }
+
+            imageViewBluster.setEnabled(true);
+            relativeBlasterBlock.setEnabled(true);
+            imageViewBluster.setImageDrawable(enable_blaster_true);
+
+
+
+        }
+
+        public void UpdateBlasterState(ArrayList<View> potronList) {
+
+            if (potronList == null)
+                return;
+
+            // Объекты, которые находятся в LlistPatron и в potronList, имеют одинаковые ID
+            // но это объекты разные => не работает метод equals()
 
             listPatron = new ArrayList<>();
             listPatron.add(imageViewShape1);
             listPatron.add(imageViewShape2);
             listPatron.add(imageViewShape3);
-            for (View patron : listPatron)
-                patron.setVisibility(View.VISIBLE);
-            imageViewBluster.setImageDrawable(enable_blaster_true);
-            imageViewBluster.setEnabled(true);
-            relativeBlasterBlock.setEnabled(true);
+
+            for (View patron : listPatron) {
+                patron.setVisibility(View.INVISIBLE);
+            }
+
+            ArrayList<Integer> idsPotrons = new ArrayList<>(); // потроны которые остались
+
+
+            for (View patron : potronList) {
+                switch (patron.getId()) {
+                    case R.id.imageViewShape1:
+                        imageViewShape1.setVisibility(View.VISIBLE);
+                        idsPotrons.add(patron.getId());
+                        break;
+                    case R.id.imageViewShape2:
+                        imageViewShape2.setVisibility(View.VISIBLE);
+                        idsPotrons.add(patron.getId());
+                        break;
+                    case R.id.imageViewShape3:
+                        imageViewShape3.setVisibility(View.VISIBLE);
+                        idsPotrons.add(patron.getId());
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            ArrayList<View> listPotronsDelete = new ArrayList<>(); // потроны, которые надо удалить
+                                                                   // из главного списка
+
+            for (View potron : listPatron) {
+                if (!idsPotrons.contains(potron.getId()))
+                    listPotronsDelete.add(potron);
+            }
+
+            listPatron.removeAll(listPotronsDelete);
+
+            if (potronList.size() == 0) {
+                imageViewBluster.setEnabled(false);
+                relativeBlasterBlock.setEnabled(false);
+                imageViewBluster.setImageDrawable(enable_blaster_false);
+            }
+
 
         }
     }
 
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
 
         Bundle args = this.getArguments();
 
@@ -142,9 +212,32 @@ public class MainFragment extends Fragment {
         this.goldAmount = (int) args.getInt(TitleFragment.AMOUNT_GOLD_KEY);
         this.pitAmount = (int) args.getInt(TitleFragment.AMOUNT_PIT_KEY);
 
+        getActivity().setTitle("");
+        blasterIsWork=true;
+        restartGame =false;
+
+
+        if (savedInstanceState!=null){
+           mMap = savedInstanceState.getParcelable(Key_mMap_For_Parceble);
+            this.potronList = ( ArrayList<View>) savedInstanceState.getSerializable(Key_ListPotron_For_Serializable);
+            this.blasterIsWork = savedInstanceState.getBoolean(Key_blasterIsWork_For_Bundle);
+        }
 
 
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+
+        outState.putParcelable(Key_mMap_For_Parceble,mMap);
+        outState.putSerializable(Key_ListPotron_For_Serializable, viewFragmentHolder.listPatron);
+        outState.putBoolean(Key_blasterIsWork_For_Bundle,blasterIsWork);
+
+        super.onSaveInstanceState(outState);
+
+
+    }
+
 
 
     @Override
@@ -153,8 +246,10 @@ public class MainFragment extends Fragment {
             return;
         if (requestCode == REQUEST_GameDialog) {
             boolean playAgain = (Boolean) data.getSerializableExtra(GameDialogFragment.PLAY_AGAIN);
-            if (playAgain)
+            if (playAgain){
+                restartGame =true;
                 updateUI();
+            }
             else
                 getActivity().finish();
         }
@@ -185,6 +280,30 @@ public class MainFragment extends Fragment {
         MenuItem goldMenuIcon = (MenuItem) menu.findItem(R.id.gold_counter);
 
         goldMenuIcon.setActionView(v);
+
+        MenuItem giveUp = (MenuItem) menu.findItem(R.id.give_up);
+
+        giveUp.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                String notifyMessage = new String();
+                notifyMessage = " Вы проиграли!!! :(\n";
+                notifyMessage += "Вы сделали: " + String.valueOf(mMap.getAmountPlayerSteps())
+                        + " шагов\nВы собрали золота: " + String.valueOf(mMap.getGoldFound()) + "/"
+                        + String.valueOf(mMap.getAmoutGold());
+
+                FragmentManager manager = getFragmentManager();
+                GameDialogFragment dialog = GameDialogFragment.newInstance(notifyMessage, false);
+                dialog.setTargetFragment(MainFragment.this, REQUEST_GameDialog);
+                dialog.show(manager, AFTER_GAME_DIALOG_Fragment);
+
+
+
+                return false;
+
+
+            }
+        });
 
     }
 
@@ -286,11 +405,9 @@ public class MainFragment extends Fragment {
                         }
 
                         if (viewFragmentHolder.listPatron.size() == 0) {
-
                             viewFragmentHolder.imageViewBluster.setEnabled(false);
                             viewFragmentHolder.relativeBlasterBlock.setEnabled(false);
-                            viewFragmentHolder.imageViewBluster
-                                    .setImageDrawable(viewFragmentHolder.enable_blaster_false);
+                            viewFragmentHolder.imageViewBluster.setImageDrawable(viewFragmentHolder.enable_blaster_false);
                         }
 
                         break;
@@ -305,6 +422,7 @@ public class MainFragment extends Fragment {
                 List listUpdates = Helper.DetectUpdates(oldMap, mMap.getArrayMap());
                 mAdapter.UpdateMap(listUpdates, mMap.getArrayMap());
 
+                viewFragmentHolder.UpdateBlasterState(potronList);
                 UpdateGameStatus();
 
             }
@@ -329,24 +447,35 @@ public class MainFragment extends Fragment {
 
     public void updateUI() {
 
-        // Создадим диалог, на случай если карта не сможешт создаться
-        FragmentManager manager = getFragmentManager();
-        MapResizeDialogFragment dialog = new MapResizeDialogFragment();
-        dialog.setTargetFragment(MainFragment.this, REQUEST_MapResizeDialogFragment);
+        if (mMap==null|| restartGame) { //если карта ранее не была создана, или игрок хочет сыграть заново,  то генерируем её
 
-        mMap = new MapGenerator(mapSize, robotAmount, goldAmount, pitAmount).getMap();
-        if (mMap == null) {
-            dialog.show(manager, MAP_RESIZE_DOALOG_FRAGMENT);
-            return;
+
+            viewFragmentHolder.GetReadyForNewGame();
+
+
+            mMap = new MapGenerator(mapSize, robotAmount, goldAmount, pitAmount).getMap();
+            if (mMap == null) {
+
+                // Создадим диалог, на случай если карта не сможет создаться
+                FragmentManager manager = getFragmentManager();
+                MapResizeDialogFragment dialog = new MapResizeDialogFragment();
+                dialog.setTargetFragment(MainFragment.this, REQUEST_MapResizeDialogFragment);
+                dialog.show(manager, MAP_RESIZE_DOALOG_FRAGMENT);
+                return;
+            }
         }
+        //иначе испульзуем уже существующую, которую нам вернул метод onSaveInstanceState
 
         mAdapter = new MapAdapter(getActivity(), mMap.getArrayMap());
         viewFragmentHolder.mRecyclerView.setAdapter(mAdapter);
 
-        viewFragmentHolder.UpdateListPotron();
+        viewFragmentHolder.UpdateBlasterState(potronList);
+        if (potronList!=null) potronList=null;
         UpdateGameStatus();
 
     }
+
+
 
 
 }

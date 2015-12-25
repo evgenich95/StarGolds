@@ -8,8 +8,15 @@ import android.support.v7.app.AppCompatActivity;
  */
 public class TitleActivity extends SingleFragmentActivity {
 
+    private static final String GragmentTag = "TitleFragment";
+
     @Override
     protected Fragment createFragment() {
         return new TitleFragment();
+    }
+
+    @Override
+    protected String getTag() {
+        return GragmentTag;
     }
 }

@@ -4,11 +4,22 @@
 
 
     <item
+        android:id="@+id/give_up"
+        android:title="Сдаться"
+
+        app:showAsAction="always|withText"
+
+        />
+
+    <item
         android:id="@+id/gold_counter"
         android:title="@string/goldcounter"
 
         app:showAsAction="always"
         />
+
+
+
 
 
 </menu>
