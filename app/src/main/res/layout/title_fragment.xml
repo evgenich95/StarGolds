@@ -12,31 +12,43 @@
         android:layout_marginTop="20dp"
         android:id="@+id/propetries"
         >
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/buttonStartGame">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/robot"
+                android:layout_alignParentLeft="true"
+                android:id="@+id/imageRobot" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/gold"
+                android:layout_toRightOf="@id/imageRobot"
+                android:id="@+id/imageGold" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/pit"
+                android:layout_toRightOf="@id/imageGold"
+                android:id="@+id/imagePit" />
 
-        <ImageView
-            android:layout_width="250px"
-            android:layout_height="250px"
-
-            android:src="@drawable/robot"
-            android:layout_alignParentLeft="true"
-            android:id="@+id/imageRobot" />
-
-        <ImageView
-            android:layout_width="250px"
-            android:layout_height="250px"
-            android:src="@drawable/gold"
-            android:layout_toRightOf="@id/imageRobot"
-            android:id="@+id/imageGold" />
-
-        <ImageView
-            android:layout_width="250px"
-            android:layout_height="250px"
-            android:src="@drawable/pit"
-            android:layout_toRightOf="@id/imageGold"
-            android:id="@+id/imagePit" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageViewSizeMap"
+                android:src="@drawable/s"
+                />
+        </LinearLayout>
 
         <NumberPicker
             android:layout_width="250px"
@@ -85,27 +97,22 @@
             android:layout_toEndOf="@+id/imageRobot" />
 
 
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/begin_game"
+            android:id="@+id/buttonStartGame"
+            android:layout_marginTop="30dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorWhite"
+            android:textSize="25dp"
+            android:padding="5dp"
+            android:textStyle="bold"
             android:layout_below="@+id/sizeMapTextView"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/begin_game"
-                android:id="@+id/buttonStartGame"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-
-                />
-
-
-        </RelativeLayout>
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
+
+
 
 </LinearLayout>
