@@ -54,6 +54,8 @@ public class MainFragment extends Fragment {
 
     private Map mMap;
 
+    RecyclerView.LayoutManager manager;
+
     private MapAdapter mAdapter;
 
     private TextView goldCounter;
@@ -360,7 +362,9 @@ public class MainFragment extends Fragment {
         v.setTag(viewFragmentHolder);
 
 
-        RecyclerView.LayoutManager manager = new GridLayoutManager(getActivity(), mapSize);
+        manager = new GridLayoutManager(getActivity(), mapSize);
+//        manager.scrollToPosition(mMap.getPlayerPosition().getPositionInList(mMap.getArrayMap()));
+
         viewFragmentHolder.mRecyclerView.setLayoutManager(manager);
 
 
@@ -403,6 +407,10 @@ public class MainFragment extends Fragment {
                     default:
                         break;
                 }
+
+//                manager.scrollToPosition(mMap.getPlayerPosition().getPositionInList(mMap.getArrayMap()));
+                int postion = mMap.getPlayerPosition().getPositionInList(mMap.getArrayMap());
+                manager.smoothScrollToPosition( viewFragmentHolder.mRecyclerView,new RecyclerView.State(),postion);
 
                 if (mMap.MovePlayer(newPosition))
                     mMap.MoveAllRobots();
