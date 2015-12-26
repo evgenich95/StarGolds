@@ -2,12 +2,10 @@ package ru.spaceootechnologies.game;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -20,25 +18,25 @@ import ru.spaceootechnologies.game.Helpers.Helper;
  */
 public class Map implements Parcelable {
 
-    public static final int RobotId = MainFragment.RobotId;
-    public static final int RobotISFreezed = MainFragment.RobotISFreezed;
-    public static final int PlayerId = MainFragment.PlayerId;
-    public static final int GoldID = MainFragment.GoldID;
-    public static final int PitID = MainFragment.PitID;
-    public static final int EmptyId = MainFragment.EmptyId;
+    public static final int RobotId = GameFragment.RobotId;
+    public static final int RobotISFreezed = GameFragment.RobotISFreezed;
+    public static final int PlayerId = GameFragment.PlayerId;
+    public static final int GoldID = GameFragment.GoldID;
+    public static final int PitID = GameFragment.PitID;
+    public static final int EmptyId = GameFragment.EmptyId;
 
 
-    private int[][]     arrayMap;
+    private int[][] arrayMap;
 
-    private int         sizeMap;
-    private int         amountGold;
-    private int         goldFound;
-    private int         amountFreezenStep;
+    private int sizeMap;
+    private int amountGold;
+    private int goldFound;
+    private int amountFreezenStep;
 
-    private Coordinate  playerPosition;
-    private int         amountPlayerSteps;
+    private Coordinate playerPosition;
+    private int amountPlayerSteps;
 
-    private boolean     GameOver;
+    private boolean GameOver;
 
     HashMap<ArrayList<Coordinate>, Integer> frezenRobots;
 
@@ -47,7 +45,7 @@ public class Map implements Parcelable {
             new Coordinate(1, 0), new Coordinate(0, 1), new Coordinate(0, -1));
 
 
-    ////Реализация интерфейса Parcelable------------------------------
+    //// Реализация интерфейса Parcelable------------------------------
 
 
     @Override
@@ -63,7 +61,7 @@ public class Map implements Parcelable {
         dest.writeInt(amountGold);
         dest.writeInt(goldFound);
         dest.writeInt(amountFreezenStep);
-        dest.writeParcelable(playerPosition,flags);
+        dest.writeParcelable(playerPosition, flags);
         dest.writeInt(amountPlayerSteps);
         dest.writeValue(GameOver);
         dest.writeSerializable(frezenRobots);
@@ -71,15 +69,15 @@ public class Map implements Parcelable {
 
     private Map(Parcel in) {
 
-        this.arrayMap= ( int [][]) in.readSerializable();
-        this.sizeMap=in.readInt();
-        this.amountGold=in.readInt();
-        this.goldFound=in.readInt();
-        this.amountFreezenStep=in.readInt();
-        this.playerPosition= (Coordinate) in.readParcelable(Coordinate.class.getClassLoader());
+        this.arrayMap = (int[][]) in.readSerializable();
+        this.sizeMap = in.readInt();
+        this.amountGold = in.readInt();
+        this.goldFound = in.readInt();
+        this.amountFreezenStep = in.readInt();
+        this.playerPosition = (Coordinate) in.readParcelable(Coordinate.class.getClassLoader());
         this.amountPlayerSteps = in.readInt();
         this.GameOver = (Boolean) in.readValue(null);
-        this.frezenRobots =  ( HashMap<ArrayList<Coordinate>, Integer>) in.readSerializable();
+        this.frezenRobots = (HashMap<ArrayList<Coordinate>, Integer>) in.readSerializable();
     }
 
     public static final Parcelable.Creator<Map> CREATOR = new Parcelable.Creator<Map>() {
@@ -94,9 +92,9 @@ public class Map implements Parcelable {
         }
     };
 
-    //Конец реализации-------------------------
+    // Конец реализации-------------------------
 
-    
+
     public Map(int[][] arrayMap, Coordinate playerPosition, int goldAmount) {
 
         this.sizeMap = arrayMap.length;

@@ -1,12 +1,9 @@
 package ru.spaceootechnologies.game;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.Bind;
-import butterknife.BindDrawable;
 import butterknife.ButterKnife;
 
 /**
@@ -38,7 +31,7 @@ public class TitleFragment extends Fragment {
 
     private ViewFragmentHolder viewFragmentHolder;
 
-     static class ViewFragmentHolder {
+    static class ViewFragmentHolder {
 
         @Bind(R.id.imageGold) ImageView imageGold;
         @Bind(R.id.imagePit) ImageView imagePit;
@@ -50,10 +43,9 @@ public class TitleFragment extends Fragment {
         @Bind(R.id.buttonStartGame) Button buttonStartGame;
 
 
-         public ViewFragmentHolder(View view) {
+        public ViewFragmentHolder(View view) {
 
             ButterKnife.bind(this, view);
-
         }
     }
 
@@ -61,8 +53,8 @@ public class TitleFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        defaultMapSize = 3;
-        defaultGoldCount = 1;
+        defaultMapSize = 10;
+        defaultGoldCount = 10;
         defaultRobotCount = 3;
         defaultPitCount = 10;
     }
@@ -76,7 +68,7 @@ public class TitleFragment extends Fragment {
 
         View v = layoutInflater.inflate(R.layout.title_fragment, container, false);
 
-       viewFragmentHolder = new ViewFragmentHolder(v);
+        viewFragmentHolder = new ViewFragmentHolder(v);
         v.setTag(viewFragmentHolder);
 
         getActivity().setTitle(R.string.set_map_properties);
@@ -105,21 +97,16 @@ public class TitleFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getActivity(), MainActivity.class);
+                Intent intent = new Intent(getActivity(), GameActivity.class);
 
                 intent.putExtra(SIZE_MAP_KEY, viewFragmentHolder.numberPickerMapSize.getValue());
                 intent.putExtra(AMOUNT_PIT_KEY, viewFragmentHolder.numberPickerPit.getValue());
                 intent.putExtra(AMOUNT_GOLD_KEY, viewFragmentHolder.numberPickerGold.getValue());
                 intent.putExtra(AMOUNT_ROBOTS_KEY, viewFragmentHolder.numberPickerRobot.getValue());
 
-
                 startActivity(intent);
-
-
             }
         });
-
-
 
         return v;
     }

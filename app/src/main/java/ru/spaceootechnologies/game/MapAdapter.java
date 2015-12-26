@@ -14,12 +14,12 @@ import java.util.List;
  */
 public class MapAdapter extends RecyclerView.Adapter<MapItemViewHolder> {
 
-    public static final int RobotId = MainFragment.RobotId;
-    public static final int RobotISFreezed = MainFragment.RobotISFreezed;
-    public static final int PlayerId = MainFragment.PlayerId;
-    public static final int GoldID = MainFragment.GoldID;
-    public static final int PitID = MainFragment.PitID;
-    public static final int EmptyId = MainFragment.EmptyId;
+    public static final int RobotId = GameFragment.RobotId;
+    public static final int RobotISFreezed = GameFragment.RobotISFreezed;
+    public static final int PlayerId = GameFragment.PlayerId;
+    public static final int GoldID = GameFragment.GoldID;
+    public static final int PitID = GameFragment.PitID;
+    public static final int EmptyId = GameFragment.EmptyId;
 
     private int sizeMap;
     private Context context;

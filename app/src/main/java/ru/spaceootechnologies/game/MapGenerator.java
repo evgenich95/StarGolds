@@ -1,7 +1,5 @@
 package ru.spaceootechnologies.game;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,11 +10,11 @@ import java.util.Random;
  */
 public class MapGenerator {
 
-    public static final int RobotId = MainFragment.RobotId;
-    public static final int PlayerId = MainFragment.PlayerId;
-    public static final int GoldID = MainFragment.GoldID;
-    public static final int PitID = MainFragment.PitID;
-    public static final int EmptyId = MainFragment.EmptyId;
+    public static final int RobotId = GameFragment.RobotId;
+    public static final int PlayerId = GameFragment.PlayerId;
+    public static final int GoldID = GameFragment.GoldID;
+    public static final int PitID = GameFragment.PitID;
+    public static final int EmptyId = GameFragment.EmptyId;
 
     private Map mMap;
 
@@ -80,7 +78,7 @@ public class MapGenerator {
             Coordinate place = GoldtCanPlace.get(new Random().nextInt(GoldtCanPlace.size()));
 
             arrayMap[place.getRow()][place.getColumn()] = GoldID;
-            placesOfGold.add(place);    // список где стоят золото
+            placesOfGold.add(place); // список где стоят золото
             GoldtCanPlace.remove(place);
         }
 
@@ -103,8 +101,8 @@ public class MapGenerator {
         RobotCanPlace.removeAll(areaPlayer);
 
         for (int i = 0; i < robotAmount; i++) {
-            if (RobotCanPlace.size()<1)
-                return;                     //построить карту нельзя
+            if (RobotCanPlace.size() < 1)
+                return; // построить карту нельзя
 
             Coordinate place = RobotCanPlace.get(new Random().nextInt(RobotCanPlace.size()));
             arrayMap[place.getRow()][place.getColumn()] = RobotId;
@@ -142,8 +140,8 @@ public class MapGenerator {
 
     public static ArrayList<Coordinate> FindShortWay(Coordinate fromPoint, Coordinate targetPoint,
             int[][] arrayMap) {
-        
-        //формируем массив разметки
+
+        // формируем массив разметки
         int[][] temp = new int[arrayMap.length][arrayMap[0].length];
 
         for (int i = 0; i < arrayMap.length; i++) {
@@ -168,7 +166,7 @@ public class MapGenerator {
         int IdTarget = arrayMap[targetPoint.getRow()][targetPoint.getColumn()];
         int IdFrom = arrayMap[fromPoint.getRow()][fromPoint.getColumn()];
 
-        //начинаем разметку карты в ширину
+        // начинаем разметку карты в ширину
         while (!currentPosition.equals(targetPoint) && inStackCoordinate.size() > 0) {
 
 
@@ -213,8 +211,8 @@ public class MapGenerator {
 
         }
 
-        //Формируем путь по разметке
-        //Путь обязательно будет существовать
+        // Формируем путь по разметке
+        // Путь обязательно будет существовать
         currentPosition = (Coordinate) targetPoint.clone();
         temp[fromPoint.getRow()][fromPoint.getColumn()] = 0;
 
