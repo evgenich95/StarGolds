@@ -375,12 +375,22 @@ public class MainFragment extends Fragment {
                 Coordinate newPosition = (Coordinate) mMap.getPlayerPosition().clone();
                 int[][] oldMap = Helper.CopyArray(mMap.getArrayMap());
 
+                int postion;
+
                 switch (v.getId()) {
                     case R.id.buttonUp:
                         newPosition.setRow(newPosition.getRow() - 1);
+                        //смещаем камеру на область рядом с игроком
+                        postion= newPosition.getPositionInList(mMap.getArrayMap());
+                        viewFragmentHolder.mRecyclerView.smoothScrollToPosition(postion-3*mapSize);
+
                         break;
                     case R.id.buttonDown:
                         newPosition.setRow(newPosition.getRow() + 1);
+
+                        //смещаем камеру на область рядом с игроком
+                        postion = newPosition.getPositionInList(mMap.getArrayMap());
+                        viewFragmentHolder.mRecyclerView.smoothScrollToPosition(postion+3*mapSize);
                         break;
                     case R.id.buttonLeft:
                         newPosition.setColumn(newPosition.getColumn() - 1);
@@ -408,10 +418,6 @@ public class MainFragment extends Fragment {
                         break;
                 }
 
-//                manager.scrollToPosition(mMap.getPlayerPosition().getPositionInList(mMap.getArrayMap()));
-                int postion = mMap.getPlayerPosition().getPositionInList(mMap.getArrayMap());
-                manager.smoothScrollToPosition( viewFragmentHolder.mRecyclerView,new RecyclerView.State(),postion);
-
                 if (mMap.MovePlayer(newPosition))
                     mMap.MoveAllRobots();
 
@@ -425,11 +431,9 @@ public class MainFragment extends Fragment {
         };
 
 
-        // Упростить в конце если не понадобится
         for (View button : viewFragmentHolder.listButtons) {
             button.setOnClickListener(onNavigateClick);
         }
-
         updateUI();
         
         return v;
@@ -458,6 +462,10 @@ public class MainFragment extends Fragment {
 
         mAdapter = new MapAdapter(getActivity(), mMap.getArrayMap());
         viewFragmentHolder.mRecyclerView.setAdapter(mAdapter);
+
+        //смещаем камеру на позицию игрока
+        int postion = mMap.getPlayerPosition().getPositionInList(mMap.getArrayMap());
+        viewFragmentHolder.mRecyclerView.smoothScrollToPosition(postion+3*mapSize);
 
         viewFragmentHolder.UpdateBlasterState(savedPatrons);
         if (savedPatrons != null)
