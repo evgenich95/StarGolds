@@ -103,6 +103,9 @@ public class MapGenerator {
         RobotCanPlace.removeAll(areaPlayer);
 
         for (int i = 0; i < robotAmount; i++) {
+            if (RobotCanPlace.size()<1)
+                return;                     //построить карту нельзя
+
             Coordinate place = RobotCanPlace.get(new Random().nextInt(RobotCanPlace.size()));
             arrayMap[place.getRow()][place.getColumn()] = RobotId;
 
