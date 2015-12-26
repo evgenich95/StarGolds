@@ -344,7 +344,7 @@ public class GameFragment extends Fragment {
 
         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
 
-        View v = layoutInflater.inflate(R.layout.delete, container, false);
+        View v = layoutInflater.inflate(R.layout.game_fragment, container, false);
 
         viewFragmentHolder = new ViewFragmentHolder(v);
         v.setTag(viewFragmentHolder);
