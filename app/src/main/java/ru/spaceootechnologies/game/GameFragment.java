@@ -7,8 +7,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.LoaderManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -353,7 +355,6 @@ public class GameFragment extends Fragment {
         manager = new GridLayoutManager(getActivity(), mapSize);
         viewFragmentHolder.mRecyclerView.setLayoutManager(manager);
 
-
         View.OnClickListener onNavigateClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -361,24 +362,29 @@ public class GameFragment extends Fragment {
                 Coordinate newPosition = (Coordinate) mMap.getPlayerPosition().clone();
                 int[][] oldMap = Helper.CopyArray(mMap.getArrayMap());
 
-                int postion;
+                int position;
 
                 switch (v.getId()) {
                     case R.id.buttonUp:
                         newPosition.setRow(newPosition.getRow() - 1);
+
                         // смещаем камеру на область рядом с игроком
-                        postion = newPosition.getPositionInList(mMap.getArrayMap());
-                        viewFragmentHolder.mRecyclerView
-                                .smoothScrollToPosition(postion - 3 * mapSize);
+                        position = mMap.getPlayerPosition().getPositionInList(mMap.getArrayMap());
+                        if (position/mapSize*mapSize > 1) {
+                            viewFragmentHolder.mRecyclerView
+                                .smoothScrollToPosition(position - 3*mapSize);
+                        }
 
                         break;
                     case R.id.buttonDown:
                         newPosition.setRow(newPosition.getRow() + 1);
 
                         // смещаем камеру на область рядом с игроком
-                        postion = newPosition.getPositionInList(mMap.getArrayMap());
-                        viewFragmentHolder.mRecyclerView
-                                .smoothScrollToPosition(postion + 3 * mapSize);
+                        position = mMap.getPlayerPosition().getPositionInList(mMap.getArrayMap());
+                        if ((mapSize*mapSize-position)/mapSize>=3){
+                            viewFragmentHolder.mRecyclerView
+                                    .smoothScrollToPosition(position + 3*mapSize);
+                        }
                         break;
                     case R.id.buttonLeft:
                         newPosition.setColumn(newPosition.getColumn() - 1);
@@ -454,11 +460,8 @@ public class GameFragment extends Fragment {
 
         // смещаем камеру на позицию игрока
         int postion = mMap.getPlayerPosition().getPositionInList(mMap.getArrayMap());
-        viewFragmentHolder.mRecyclerView.smoothScrollToPosition(postion + 3 * mapSize);
+        viewFragmentHolder.mRecyclerView.smoothScrollToPosition(postion+3*mapSize);
 
-        // viewFragmentHolder.UpdateBlasterState(savedIdsPatrons);
-        // if (savedPatrons != null)
-        // savedPatrons = null;
         viewFragmentHolder.UpdateBlasterState(savedIdsPatrons);
         if (savedIdsPatrons != null)
             savedIdsPatrons = null;
