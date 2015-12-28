@@ -61,7 +61,8 @@
                             android:orientation="horizontal"
                             android:layout_weight="50"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            >
 
                             <LinearLayout
                                 android:orientation="vertical"
@@ -73,37 +74,6 @@
                                     android:layout_weight="50"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent">
-                                    <ImageButton
-                                        android:layout_weight="30"
-                                        style="?android:attr/buttonStyleSmall"
-                                        android:layout_width="200px"
-                                        android:layout_height="200px"
-                                        android:background="@null"
-                                        android:layout_alignParentBottom="true"
-                                        android:layout_alignParentLeft="true"/>
-
-                                    <ImageButton
-                                        style="?android:attr/buttonStyleSmall"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="match_parent"
-                                        android:background="@null"
-                                        android:src="@drawable/arrow_up"
-                                        android:id="@+id/buttonUp"
-
-
-                                        />
-                                    <ImageButton
-                                        android:visibility="invisible"
-                                        android:layout_weight="30"
-                                        style="?android:attr/buttonStyleSmall"
-                                        android:layout_width="200px"
-                                        android:layout_height="200px"
-                                        android:src="@drawable/arrow_left"
-                                        android:scaleType="fitXY"
-                                        android:background="@null"
-                                        android:layout_alignParentBottom="true"
-                                        android:layout_alignParentLeft="true"/>
-
 
                                 </LinearLayout>
 
@@ -127,38 +97,57 @@
 
                                             <ImageButton
                                                 android:layout_weight="30"
-                                                style="?android:attr/buttonStyleSmall"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
-                                                android:src="@drawable/arrow_left"
                                                 android:scaleType="fitXY"
+                                                android:src="@drawable/arrow_left"
                                                 android:background="@null"
                                                 android:id="@+id/buttonLeft"
-                                                android:layout_alignParentBottom="true"
-                                                android:layout_alignParentLeft="true"/>
+                                                />
 
-                                            <ImageButton
-                                                android:layout_weight="27"
+                                            <LinearLayout
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="match_parent"
+                                                android:weightSum="30"
+                                                android:layout_weight="30"
+                                                android:orientation="vertical">
+
+                                                <ImageButton
+                                                    android:layout_weight="15"
+                                                    style="?android:attr/buttonStyleSmall"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="match_parent"
+                                                    android:background="@null"
+                                                    android:scaleType="fitXY"
+                                                    android:src="@drawable/arrow_up"
+                                                    android:id="@+id/buttonUp"
+
+
+                                                    />
+
+                                            <ImageButton
+
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:layout_weight="15"
                                                 android:src="@drawable/arrow_down"
                                                 android:background="@null"
-                                                android:scaleType="centerInside"
+                                                android:scaleType="fitXY"
                                                 android:id="@+id/buttonDown"
 
                                                 />
 
+
+                                            </LinearLayout>
+
                                             <ImageButton
                                                 android:layout_weight="30"
-                                                style="?android:attr/buttonStyleSmall"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:scaleType="fitXY"
                                                 android:background="@null"
                                                 android:id="@+id/buttonRight"
                                                 android:src="@drawable/arrow_right"
-                                                android:layout_toRightOf="@+id/buttonDown"
-                                                android:layout_alignParentBottom="true"
                                                 ></ImageButton>
                                         </LinearLayout>
                                     </LinearLayout>
