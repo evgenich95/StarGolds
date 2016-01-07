@@ -14,5 +14,9 @@
     <string name="cantCreateMap">Создать карту с данными характеристиками не получилось!</string>
     <string name="reCreateMap">Попробовать ещё раз</string>
     <string name="changeMapProperties">Изменить характеристики карты</string>
+    <string name="win">" Вы выйграли!!!\n"</string>
+    <string name="lost">" Вы проиграли!!! :(\n"</string>
+    <string name="you_did">"Вы сделали: "</string>
+    <string name="steps_and_find">" шагов\nВы собрали золота: "</string>
 
 </resources>

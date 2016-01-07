@@ -211,9 +211,7 @@ public class GameFragment extends Fragment {
         // необходимо передавать именно массив ids, т.к. при серилизации списка объекты дублируются
         // --> не работает equals()
         // частые ошибки при Серилизации объекта List
-        // outState.putSerializable(Key_arrayIdsPatrons_For_Serializable, arrayIdsPatrons);
         outState.putIntArray(Key_arrayIdsPatrons_For_Serializable, arrayIdsPatrons);
-
 
         super.onSaveInstanceState(outState);
 
@@ -268,9 +266,9 @@ public class GameFragment extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 String notifyMessage;
-                notifyMessage = " Вы проиграли!!! :(\n";
-                notifyMessage += "Вы сделали: " + String.valueOf(mMap.getAmountPlayerSteps())
-                        + " шагов\nВы собрали золота: " + String.valueOf(mMap.getGoldFound()) + "/"
+                notifyMessage = getString(R.string.lost);
+                notifyMessage += getString(R.string.you_did) + String.valueOf(mMap.getAmountPlayerSteps())
+                        + getString(R.string.steps_and_find) + String.valueOf(mMap.getGoldFound()) + "/"
                         + String.valueOf(mMap.getAmoutGold());
 
                 FragmentManager manager = getFragmentManager();
@@ -278,11 +276,7 @@ public class GameFragment extends Fragment {
                 dialog.setTargetFragment(GameFragment.this, REQUEST_GameDialog);
                 dialog.show(manager, AFTER_GAME_DIALOG_Fragment);
 
-
-
                 return false;
-
-
             }
         });
 
@@ -299,17 +293,17 @@ public class GameFragment extends Fragment {
 
         if (mMap.getAmoutGold() == mMap.getGoldFound()) {
             DidWin = true;
-            notifyMessage = (" Вы выйграли!!!\n");
+            notifyMessage = getString(R.string.win);
         }
 
         if (mMap.isGameOver()) {
             DidWin = false;
-            notifyMessage = " Вы проиграли!!! :(\n";
+            notifyMessage = getString(R.string.lost);
 
         }
 
-        notifyMessage += "Вы сделали: " + String.valueOf(mMap.getAmountPlayerSteps())
-                + " шагов\nВы собрали золота: " + String.valueOf(mMap.getGoldFound()) + "/"
+        notifyMessage += getString(R.string.you_did) + String.valueOf(mMap.getAmountPlayerSteps())
+                + getString(R.string.steps_and_find) + String.valueOf(mMap.getGoldFound()) + "/"
                 + String.valueOf(mMap.getAmoutGold());
 
         FragmentManager manager = getFragmentManager();
@@ -457,8 +451,8 @@ public class GameFragment extends Fragment {
         viewFragmentHolder.mRecyclerView.setAdapter(mAdapter);
 
         // смещаем камеру на позицию игрока
-        int postion = mMap.getPlayerPosition().getPositionInList(mMap.getArrayMap());
-        viewFragmentHolder.mRecyclerView.smoothScrollToPosition(postion+3*mapSize);
+        int position = mMap.getPlayerPosition().getPositionInList(mMap.getArrayMap());
+        viewFragmentHolder.mRecyclerView.smoothScrollToPosition(position+3*mapSize);
 
         viewFragmentHolder.UpdateBlasterState(savedIdsPatrons);
         if (savedIdsPatrons != null)
