@@ -9,9 +9,7 @@ import java.util.Random;
 
 import ru.spaceootechnologies.game.helper.Constants;
 import ru.spaceootechnologies.game.helper.CoordinateComparator;
-import ru.spaceootechnologies.game.helper.Helper;
 import ru.spaceootechnologies.game.helper.MapGenerator;
-import ru.spaceootechnologies.game.ui.fragment.GameFragment;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -124,7 +122,7 @@ public class Map implements Parcelable {
     }
 
 
-    public boolean MovePlayer(Coordinate position) {
+    public boolean movePlayer(Coordinate position) {
 
         if (position.equals(playerPosition)) {
             amountPlayerSteps++;
@@ -159,11 +157,11 @@ public class Map implements Parcelable {
     }
 
 
-    private void RobotDidBitePlayer() {
+    private void robotDidBitePlayer() {
         GameOver = true;
     }
 
-    private boolean RobotCanMoveTo(Coordinate target) {
+    private boolean robotCanMoveTo(Coordinate target) {
         if (target.getRow() < 0 || target.getRow() >= sizeMap)
             return false;
 
@@ -178,7 +176,7 @@ public class Map implements Parcelable {
         return true;
     }
 
-    private void MoveRobot(Coordinate coordinate) {
+    private void moveRobot(Coordinate coordinate) {
         Coordinate target = null;
         // Ищем первую попавшуюся свободную клетку
 
@@ -187,22 +185,22 @@ public class Map implements Parcelable {
 
         ArrayList<Coordinate> offsets = new ArrayList<>(neighborOffsets);
 
-        ArrayList<Coordinate> way = MapGenerator.FindShortWay(playerPosition, coordinate, arrayMap); // ищем
+        ArrayList<Coordinate> way = MapGenerator.findShortWay(playerPosition, coordinate, arrayMap); // ищем
         // путь от робота до игрока
 
         if (way.size() > 0) {
             target = way.get(0);
         }
 
-        if (target == null || !RobotCanMoveTo(target)) { // если кратчайшего пути нет или по
+        if (target == null || !robotCanMoveTo(target)) { // если кратчайшего пути нет или по
             // нему нельзя двигаться
             target = null;
             int numberOffset;
 
             while (offsets.size() > 0) {
                 numberOffset = generator.nextInt(offsets.size());
-                nextPosition = coordinate.Plus(offsets.get(numberOffset));
-                if (RobotCanMoveTo(nextPosition)) {
+                nextPosition = coordinate.plus(offsets.get(numberOffset));
+                if (robotCanMoveTo(nextPosition)) {
                     target = (Coordinate) nextPosition.clone();
                     break;
                 } else
@@ -218,11 +216,11 @@ public class Map implements Parcelable {
 
         // Робот наступил на игрока - игра окончена должна быть
         if (target.equals(playerPosition)) {
-            RobotDidBitePlayer();
+            robotDidBitePlayer();
         }
     }
 
-    public void MoveAllRobots() {
+    public void moveAllRobots() {
         List<Coordinate> listRobots = new ArrayList<>();
 
 
@@ -238,7 +236,7 @@ public class Map implements Parcelable {
         // робот
 
         for (Coordinate cor : listRobots) {
-            MoveRobot(cor);
+            moveRobot(cor);
         }
 
         if (frezenRobots.size() <= 0)
@@ -251,7 +249,7 @@ public class Map implements Parcelable {
 
             int step = entry.getValue();
             if (step == 0) {
-                UnFreezeAllRobots(entry.getKey());
+                unFreezeAllRobots(entry.getKey());
                 frezenRobots.remove(entry.getKey());
             } else { // обновляем кол-во ходов до размораживания роботов
                 step--;
@@ -274,7 +272,7 @@ public class Map implements Parcelable {
     }
 
 
-    public void FreezeAllRobots() {
+    public void freezeAllRobots() {
 
         Coordinate nextPosition;
         ArrayList<Coordinate> listRobotsForFreeze = new ArrayList<>();
@@ -287,7 +285,7 @@ public class Map implements Parcelable {
                 new Coordinate(-1, 1), new Coordinate(1, -1), new Coordinate(-1, -1));
 
         for (Coordinate cord : offsets) {
-            nextPosition = currentPosition.Plus(cord);
+            nextPosition = currentPosition.plus(cord);
 
             if (nextPosition.getRow() < 0 || nextPosition.getRow() >= sizeMap) {
                 continue;
@@ -314,7 +312,7 @@ public class Map implements Parcelable {
 
     }
 
-    public void UnFreezeAllRobots(ArrayList<Coordinate> listFreezenRobots) {
+    public void unFreezeAllRobots(ArrayList<Coordinate> listFreezenRobots) {
 
         if (listFreezenRobots.size() <= 0)
             return;

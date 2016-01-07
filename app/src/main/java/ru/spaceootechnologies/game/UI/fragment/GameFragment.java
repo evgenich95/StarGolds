@@ -3,7 +3,6 @@ package ru.spaceootechnologies.game.ui.fragment;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -122,7 +121,7 @@ public class GameFragment extends Fragment {
 
         }
 
-        public void GetReadyForNewGame() {
+        public void getReadyForNewGame() {
             listPatron = new ArrayList<>();
 
             listPatron.add(imageViewShape1);
@@ -139,7 +138,7 @@ public class GameFragment extends Fragment {
 
         }
 
-        public void UpdateBlasterState(int[] idsPotrons) {
+        public void updateBlasterState(int[] idsPotrons) {
 
             if (idsPotrons == null)
                 return;
@@ -254,7 +253,7 @@ public class GameFragment extends Fragment {
 
 
         goldCounter = (TextView) v.findViewById(R.id.textView_goldCounter);
-        UpdateGoldStatus();
+        updateGoldStatus();
 
         MenuItem goldMenuIcon = menu.findItem(R.id.gold_counter);
 
@@ -282,8 +281,8 @@ public class GameFragment extends Fragment {
 
     }
 
-    private void UpdateGameStatus() {
-        UpdateGoldStatus();
+    private void updateGameStatus() {
+        updateGoldStatus();
 
         if (mMap.getAmoutGold() != mMap.getGoldFound() && !mMap.isGameOver())
             return;
@@ -313,7 +312,7 @@ public class GameFragment extends Fragment {
 
     }
 
-    private void UpdateGoldStatus() {
+    private void updateGoldStatus() {
         int GoldFound;
         int AllGold;
         if (mMap == null) {
@@ -352,7 +351,7 @@ public class GameFragment extends Fragment {
             public void onClick(View v) {
 
                 Coordinate newPosition = (Coordinate) mMap.getPlayerPosition().clone();
-                int[][] oldMap = Helper.CopyArray(mMap.getArrayMap());
+                int[][] oldMap = Helper.copyArray(mMap.getArrayMap());
 
                 int position;
 
@@ -388,7 +387,7 @@ public class GameFragment extends Fragment {
 
                         if (viewFragmentHolder.listPatron.size() > 0) {
 
-                            mMap.FreezeAllRobots();
+                            mMap.freezeAllRobots();
                             viewFragmentHolder.listPatron.get(0).setVisibility(View.INVISIBLE);
                             viewFragmentHolder.listPatron.remove(0);
                         }
@@ -405,14 +404,14 @@ public class GameFragment extends Fragment {
                         break;
                 }
 
-                if (mMap.MovePlayer(newPosition))
-                    mMap.MoveAllRobots();
+                if (mMap.movePlayer(newPosition))
+                    mMap.moveAllRobots();
 
-                List listUpdates = Helper.DetectUpdates(oldMap, mMap.getArrayMap());
-                mAdapter.UpdateMap(listUpdates, mMap.getArrayMap());
+                List listUpdates = Helper.detectUpdates(oldMap, mMap.getArrayMap());
+                mAdapter.updateMap(listUpdates, mMap.getArrayMap());
 
-                viewFragmentHolder.UpdateBlasterState(savedIdsPatrons);
-                UpdateGameStatus();
+                viewFragmentHolder.updateBlasterState(savedIdsPatrons);
+                updateGameStatus();
 
             }
         };
@@ -431,7 +430,7 @@ public class GameFragment extends Fragment {
         if (mMap == null || restartGame) { // если карта ранее не была создана, или игрок хочет
                                            // сыграть заново, то генерируем её
 
-            viewFragmentHolder.GetReadyForNewGame();
+            viewFragmentHolder.getReadyForNewGame();
 
 
             mMap = new MapGenerator(mapSize, robotAmount, goldAmount, pitAmount).getMap();
@@ -454,10 +453,10 @@ public class GameFragment extends Fragment {
         int position = mMap.getPlayerPosition().getPositionInList(mMap.getArrayMap());
         viewFragmentHolder.mRecyclerView.smoothScrollToPosition(position+3*mapSize);
 
-        viewFragmentHolder.UpdateBlasterState(savedIdsPatrons);
+        viewFragmentHolder.updateBlasterState(savedIdsPatrons);
         if (savedIdsPatrons != null)
             savedIdsPatrons = null;
-        UpdateGameStatus();
+        updateGameStatus();
     }
 }
 

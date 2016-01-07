@@ -7,7 +7,6 @@ import java.util.Random;
 
 import ru.spaceootechnologies.game.entity.Coordinate;
 import ru.spaceootechnologies.game.entity.Map;
-import ru.spaceootechnologies.game.ui.fragment.GameFragment;
 
 /**
  * Created by Anton on 23.12.2015.
@@ -32,11 +31,11 @@ public class MapGenerator {
 
     public Map getMap() {
         if (mMap == null)
-            GenerateNewMap();
+            generateNewMap();
         return mMap;
     }
 
-    public void GenerateNewMap() {
+    public void generateNewMap() {
 
         ArrayList<Coordinate> allCoordinates = new ArrayList<>();
         int[][] arrayMap;
@@ -78,7 +77,7 @@ public class MapGenerator {
         }
 
         for (Coordinate cord : placesOfGold) {
-            allCoordinates.removeAll(FindShortWay(cord, playerPosition, arrayMap));
+            allCoordinates.removeAll(findShortWay(cord, playerPosition, arrayMap));
         }
 
         if (allCoordinates.size() < robotAmount) {
@@ -91,7 +90,7 @@ public class MapGenerator {
         ArrayList<Coordinate> RobotCanPlace = (ArrayList<Coordinate>) allCoordinates.clone();
 
         // Получаем список координат в радиусе 2 клетки от игрока
-        ArrayList<Coordinate> areaPlayer = GetAreaPlayer(playerPosition);
+        ArrayList<Coordinate> areaPlayer = getAreaPlayer(playerPosition);
 
         RobotCanPlace.removeAll(areaPlayer);
 
@@ -109,7 +108,7 @@ public class MapGenerator {
         }
 
         for (Coordinate cord : placesOfRobots) {
-            allCoordinates.removeAll(FindShortWay(cord, playerPosition, arrayMap));
+            allCoordinates.removeAll(findShortWay(cord, playerPosition, arrayMap));
         }
 
         if (allCoordinates.size() < pitAmount) {
@@ -131,8 +130,8 @@ public class MapGenerator {
         mMap = new Map(arrayMap, playerPosition, goldAmount);
     }
 
-    public static ArrayList<Coordinate> FindShortWay(Coordinate fromPoint, Coordinate targetPoint,
-            int[][] arrayMap) {
+    public static ArrayList<Coordinate> findShortWay(Coordinate fromPoint, Coordinate targetPoint,
+                                                     int[][] arrayMap) {
 
         // формируем массив разметки
         int[][] temp = new int[arrayMap.length][arrayMap[0].length];
@@ -171,7 +170,7 @@ public class MapGenerator {
 
             for (Coordinate pos : offsets) {
 
-                nextPosition = currentPosition.Plus(pos);
+                nextPosition = currentPosition.plus(pos);
 
                 if (nextPosition.getRow() < 0 || nextPosition.getRow() >= arrayMap.length) {
                     continue;
@@ -212,7 +211,7 @@ public class MapGenerator {
         while (!currentPosition.equals(fromPoint)) {
             for (Coordinate pos : offsets) {
 
-                nextPosition = currentPosition.Plus(pos);
+                nextPosition = currentPosition.plus(pos);
 
 
                 if (nextPosition.getRow() < 0 || nextPosition.getRow() >= arrayMap.length) {
@@ -244,7 +243,7 @@ public class MapGenerator {
 
     }
 
-    public ArrayList<Coordinate> GetAreaPlayer(Coordinate positionPlayer) {
+    public ArrayList<Coordinate> getAreaPlayer(Coordinate positionPlayer) {
 
         ArrayList<Coordinate> areaPlayer = new ArrayList<>();
 
@@ -255,7 +254,7 @@ public class MapGenerator {
                         new Coordinate(-1, 1), new Coordinate(1, -1), new Coordinate(-1, -1));
 
         for (Coordinate cor : offsets) {
-            areaPlayer.add(positionPlayer.Plus(cor));
+            areaPlayer.add(positionPlayer.plus(cor));
         }
         return areaPlayer;
     }

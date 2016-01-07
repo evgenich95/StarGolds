@@ -56,7 +56,7 @@ public class Coordinate  implements Cloneable, Parcelable {
         return row * array[0].length + column;
     }
 
-    public static Coordinate CoordinateForPositionInList(int[][] array, int positionInList) {
+    public static Coordinate coordinateForPositionInList(int[][] array, int positionInList) {
         int column = positionInList % array[0].length;
         int row = (positionInList - column) / array[0].length;
 
@@ -88,7 +88,7 @@ public class Coordinate  implements Cloneable, Parcelable {
         this.column = column;
     }
 
-    public Coordinate Plus(Coordinate right) {
+    public Coordinate plus(Coordinate right) {
 
         return new Coordinate(this.row + right.row, this.column + right.column);
 

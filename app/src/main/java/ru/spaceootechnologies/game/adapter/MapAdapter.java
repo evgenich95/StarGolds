@@ -13,7 +13,6 @@ import ru.spaceootechnologies.game.helper.Constants;
 import ru.spaceootechnologies.game.holder.MapItemViewHolder;
 import ru.spaceootechnologies.game.R;
 import ru.spaceootechnologies.game.entity.Coordinate;
-import ru.spaceootechnologies.game.ui.fragment.GameFragment;
 
 /**
  * Created by Anton on 18.12.2015.
@@ -49,7 +48,7 @@ public class MapAdapter extends RecyclerView.Adapter<MapItemViewHolder> {
     @Override
     public void onBindViewHolder(MapItemViewHolder holder, int position) {
 
-        Coordinate pos = Coordinate.CoordinateForPositionInList(arrayMap, position);
+        Coordinate pos = Coordinate.coordinateForPositionInList(arrayMap, position);
 
         switch (arrayMap[pos.getRow()][pos.getColumn()]) {
             case Constants.RobotId: // робот
@@ -88,7 +87,7 @@ public class MapAdapter extends RecyclerView.Adapter<MapItemViewHolder> {
         }
     }
 
-    public void UpdateMap(List<Integer> listUpdates, int[][] array) {
+    public void updateMap(List<Integer> listUpdates, int[][] array) {
         this.arrayMap = array;
         for (int item : listUpdates) {
             notifyItemChanged(item);
