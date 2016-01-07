@@ -32,7 +32,7 @@ import ru.spaceootechnologies.game.adapter.MapAdapter;
 import ru.spaceootechnologies.game.helper.MapGenerator;
 import ru.spaceootechnologies.game.R;
 import ru.spaceootechnologies.game.ui.dialog.GameDialog;
-import ru.spaceootechnologies.game.ui.dialog.MapResizeDialogFragment;
+import ru.spaceootechnologies.game.ui.dialog.MapResizeDialog;
 
 /**
  * Created by Anton on 17.12.2015.
@@ -44,7 +44,7 @@ public class GameFragment extends Fragment {
     public static final int REQUEST_GameDialog = 0;
     public static final String AFTER_GAME_DIALOG_Fragment = "AfterGameDialogFragment";
 
-    public static final String MAP_RESIZE_DOALOG_FRAGMENT = "MapResizeDialogFragment";
+    public static final String MAP_RESIZE_DIALOG = "MapResizeDialog";
     public static final int REQUEST_MapResizeDialogFragment = 1;
 
     private static final String Key_mMap_For_Parceble = "mMap in Parceble";
@@ -233,7 +233,7 @@ public class GameFragment extends Fragment {
         }
         if (requestCode == REQUEST_MapResizeDialogFragment) {
             boolean reCreateMap =
-                    (Boolean) data.getSerializableExtra(MapResizeDialogFragment.RECREATE_MAP);
+                    (Boolean) data.getSerializableExtra(MapResizeDialog.RECREATE_MAP);
             if (reCreateMap)
                 updateUI();
             else
@@ -432,15 +432,15 @@ public class GameFragment extends Fragment {
 
             viewFragmentHolder.getReadyForNewGame();
 
-
-            mMap = new MapGenerator(mapSize, robotAmount, goldAmount, pitAmount).getMap();
+            MapGenerator mMapGenerator = new MapGenerator(mapSize, robotAmount, goldAmount, pitAmount, getActivity());
+            mMap = mMapGenerator.getMap();
             if (mMap == null) {
 
                 // Создадим диалог, на случай если карта не сможет создаться
                 FragmentManager manager = getFragmentManager();
-                MapResizeDialogFragment dialog = new MapResizeDialogFragment();
+                MapResizeDialog dialog = MapResizeDialog.newInstance(mMapGenerator.getErrorMessage());
                 dialog.setTargetFragment(GameFragment.this, REQUEST_MapResizeDialogFragment);
-                dialog.show(manager, MAP_RESIZE_DOALOG_FRAGMENT);
+                dialog.show(manager, MAP_RESIZE_DIALOG);
                 return;
             }
         }

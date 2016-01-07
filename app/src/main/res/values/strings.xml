@@ -11,12 +11,16 @@
     <string name="size_map">Размер карты</string>
     <string name="set_map_properties">Задайте характеристику карты</string>
     <string name="bluster">bluster</string>
-    <string name="cantCreateMap">Создать карту с данными характеристиками не получилось!</string>
+    <string name="cantCreateMap">Создать карту с данными характеристиками не получилось!\n</string>
     <string name="reCreateMap">Попробовать ещё раз</string>
     <string name="changeMapProperties">Изменить характеристики карты</string>
     <string name="win">" Вы выйграли!!!\n"</string>
     <string name="lost">" Вы проиграли!!! :(\n"</string>
     <string name="you_did">"Вы сделали: "</string>
     <string name="steps_and_find">" шагов\nВы собрали золота: "</string>
+    <string name="error_size_map"><![CDATA[Недопустимый размер карты!\n Размерность должна быть >=1]]></string>
+    <string name="error_count_gold">Кол-во золота больше, чем свободных мест</string>
+    <string name="error_robots_cant_place">Роботы не могут быть размещены</string>
+    <string name="error_pits_cant_placed">Ямы не могут быть размещены</string>
 
 </resources>

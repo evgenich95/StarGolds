@@ -19,9 +19,20 @@ import ru.spaceootechnologies.game.R;
 /**
  * Created by Anton on 25.12.2015.
  */
-public class MapResizeDialogFragment extends DialogFragment {
+public class MapResizeDialog extends DialogFragment {
 
     public static final String RECREATE_MAP = "RecreateMap";
+    private static final String ERROR_MESSAGE = "Error_message";
+
+    public static MapResizeDialog newInstance(String errorMessage) {
+
+        Bundle args = new Bundle();
+        args.putString(ERROR_MESSAGE, errorMessage);
+
+        MapResizeDialog fragment = new MapResizeDialog();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     private void sendResult(int resultCode, boolean playAgain) {
         Intent intent = new Intent();
@@ -35,8 +46,10 @@ public class MapResizeDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+        String message = getString(R.string.cantCreateMap) + getArguments().getString(ERROR_MESSAGE);
+
         TextView notify = new TextView(getActivity());
-        notify.setText(R.string.cantCreateMap);
+        notify.setText(message);
         notify.setGravity(Gravity.CENTER_HORIZONTAL);
 
         notify.setTextColor(ContextCompat.getColor(getActivity(), R.color.gameOverText));

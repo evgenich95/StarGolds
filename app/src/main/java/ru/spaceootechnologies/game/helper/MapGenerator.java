@@ -1,10 +1,16 @@
 package ru.spaceootechnologies.game.helper;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.support.v4.content.ContextCompat;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.ResourceBundle;
 
+import ru.spaceootechnologies.game.R;
 import ru.spaceootechnologies.game.entity.Coordinate;
 import ru.spaceootechnologies.game.entity.Map;
 
@@ -19,20 +25,29 @@ public class MapGenerator {
     private int robotAmount;
     private int goldAmount;
     private int pitAmount;
+    private String ErrorMessage;
+    private Context context;
 
-    public MapGenerator(int mapSize, int robotAmount, int goldAmount, int pitAmount) {
+    public MapGenerator(int mapSize, int robotAmount, int goldAmount, int pitAmount, Context context) {
 
         this.mMap = null;
         this.mapSize = mapSize;
         this.robotAmount = robotAmount;
         this.goldAmount = goldAmount;
         this.pitAmount = pitAmount;
+        this.context = context;
+
+        this.ErrorMessage = null;
     }
 
     public Map getMap() {
         if (mMap == null)
             generateNewMap();
         return mMap;
+    }
+
+    public String getErrorMessage() {
+        return ErrorMessage;
     }
 
     public void generateNewMap() {
@@ -49,6 +64,7 @@ public class MapGenerator {
         ArrayList<Coordinate> placesOfGold = new ArrayList<>();
 
         if (allCoordinates.size() <= 1) {
+            ErrorMessage = context.getString(R.string.error_size_map);
             return;
 
         }
@@ -62,6 +78,7 @@ public class MapGenerator {
 
 
         if (allCoordinates.size() < goldAmount) {
+            ErrorMessage = context.getString(R.string.error_count_gold);
             return;
         }
 
@@ -81,6 +98,7 @@ public class MapGenerator {
         }
 
         if (allCoordinates.size() < robotAmount) {
+            ErrorMessage = context.getString(R.string.error_robots_cant_place);
             return;
         }
 
@@ -95,8 +113,10 @@ public class MapGenerator {
         RobotCanPlace.removeAll(areaPlayer);
 
         for (int i = 0; i < robotAmount; i++) {
-            if (RobotCanPlace.size() < 1)
+            if (RobotCanPlace.size() < 1){
+                ErrorMessage = context.getString(R.string.error_robots_cant_place);
                 return; // построить карту нельзя
+            }
 
             Coordinate place = RobotCanPlace.get(new Random().nextInt(RobotCanPlace.size()));
             arrayMap[place.getRow()][place.getColumn()] = Constants.RobotId;
@@ -112,6 +132,7 @@ public class MapGenerator {
         }
 
         if (allCoordinates.size() < pitAmount) {
+            ErrorMessage = context.getString(R.string.error_pits_cant_placed);
             return;
         }
 
