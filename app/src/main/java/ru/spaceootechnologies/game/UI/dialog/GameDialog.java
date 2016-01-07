@@ -1,4 +1,4 @@
-package ru.spaceootechnologies.game;
+package ru.spaceootechnologies.game.ui.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -14,10 +14,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import ru.spaceootechnologies.game.R;
+
 /**
  * Created by Anton on 19.12.2015.
  */
-public class GameDialogFragment extends DialogFragment {
+public class GameDialog extends DialogFragment {
 
     private static final String NOTIFY_MESSAGE = "messagetoDialog";
     private static final String DID_WIN = "booleanDidWin";
@@ -25,13 +27,13 @@ public class GameDialogFragment extends DialogFragment {
 
     private TextView notify;
 
-    public static GameDialogFragment newInstance(String notifyMessage, boolean DidWin) {
+    public static GameDialog newInstance(String notifyMessage, boolean DidWin) {
 
         Bundle args = new Bundle();
         args.putString(NOTIFY_MESSAGE, notifyMessage);
         args.putBoolean(DID_WIN, DidWin);
 
-        GameDialogFragment fragment = new GameDialogFragment();
+        GameDialog fragment = new GameDialog();
         fragment.setArguments(args);
         return fragment;
     }

@@ -1,7 +1,8 @@
-package ru.spaceootechnologies.game;
+package ru.spaceootechnologies.game.ui;
 
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+
+import ru.spaceootechnologies.game.ui.fragment.TitleFragment;
 
 /**
  * Created by Anton on 23.12.2015.

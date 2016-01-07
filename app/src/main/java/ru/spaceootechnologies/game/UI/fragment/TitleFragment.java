@@ -1,4 +1,4 @@
-package ru.spaceootechnologies.game;
+package ru.spaceootechnologies.game.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,8 @@ import android.widget.NumberPicker;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import ru.spaceootechnologies.game.ui.GameActivity;
+import ru.spaceootechnologies.game.R;
 
 /**
  * Created by Anton on 23.12.2015.

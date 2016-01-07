@@ -1,9 +1,13 @@
-package ru.spaceootechnologies.game;
+package ru.spaceootechnologies.game.helper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import ru.spaceootechnologies.game.entity.Coordinate;
+import ru.spaceootechnologies.game.entity.Map;
+import ru.spaceootechnologies.game.ui.fragment.GameFragment;
 
 /**
  * Created by Anton on 23.12.2015.

@@ -1,8 +1,10 @@
-package ru.spaceootechnologies.game;
+package ru.spaceootechnologies.game.holder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+
+import ru.spaceootechnologies.game.R;
 
 /**
  * Created by Anton on 18.12.2015.

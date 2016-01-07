@@ -1,10 +1,7 @@
-package ru.spaceootechnologies.game;
+package ru.spaceootechnologies.game.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
-
-import java.util.Date;
 
 /**
  * Created by Anton on 19.12.2015.
@@ -79,7 +76,7 @@ public class Coordinate extends Object implements Cloneable, Parcelable {
     }
 
     @Override
-    protected Object clone() {
+    public Object clone() {
         try {
             return super.clone();
         } catch (CloneNotSupportedException e) {

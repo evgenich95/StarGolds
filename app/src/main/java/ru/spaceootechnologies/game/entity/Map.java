@@ -1,7 +1,4 @@
-package ru.spaceootechnologies.game;
-
-import android.os.Parcel;
-import android.os.Parcelable;
+package ru.spaceootechnologies.game.entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,8 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-import ru.spaceootechnologies.game.Helpers.CoordinateComparator;
-import ru.spaceootechnologies.game.Helpers.Helper;
+import ru.spaceootechnologies.game.helper.CoordinateComparator;
+import ru.spaceootechnologies.game.helper.Helper;
+import ru.spaceootechnologies.game.helper.MapGenerator;
+import ru.spaceootechnologies.game.ui.fragment.GameFragment;
+
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by Anton on 17.12.2015.

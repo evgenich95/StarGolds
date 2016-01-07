@@ -1,11 +1,8 @@
-package ru.spaceootechnologies.game.Helpers;
-
-import android.util.Log;
+package ru.spaceootechnologies.game.helper;
 
 import java.util.Comparator;
 
-import ru.spaceootechnologies.game.Coordinate;
-import ru.spaceootechnologies.game.Map;
+import ru.spaceootechnologies.game.entity.Coordinate;
 
 /**
  * Created by Anton on 22.12.2015.

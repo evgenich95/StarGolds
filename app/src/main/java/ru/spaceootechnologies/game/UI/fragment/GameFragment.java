@@ -1,4 +1,4 @@
-package ru.spaceootechnologies.game;
+package ru.spaceootechnologies.game.ui.fragment;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -7,10 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.LoaderManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,7 +26,14 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.BindDrawable;
 import butterknife.ButterKnife;
-import ru.spaceootechnologies.game.Helpers.Helper;
+import ru.spaceootechnologies.game.entity.Coordinate;
+import ru.spaceootechnologies.game.helper.Helper;
+import ru.spaceootechnologies.game.entity.Map;
+import ru.spaceootechnologies.game.adapter.MapAdapter;
+import ru.spaceootechnologies.game.helper.MapGenerator;
+import ru.spaceootechnologies.game.R;
+import ru.spaceootechnologies.game.ui.dialog.GameDialog;
+import ru.spaceootechnologies.game.ui.dialog.MapResizeDialogFragment;
 
 /**
  * Created by Anton on 17.12.2015.
@@ -228,7 +233,7 @@ public class GameFragment extends Fragment {
         if (resultCode != getActivity().RESULT_OK)
             return;
         if (requestCode == REQUEST_GameDialog) {
-            boolean playAgain = (Boolean) data.getSerializableExtra(GameDialogFragment.PLAY_AGAIN);
+            boolean playAgain = (Boolean) data.getSerializableExtra(GameDialog.PLAY_AGAIN);
             if (playAgain) {
                 restartGame = true;
                 updateUI();
@@ -275,7 +280,7 @@ public class GameFragment extends Fragment {
                         + String.valueOf(mMap.getAmoutGold());
 
                 FragmentManager manager = getFragmentManager();
-                GameDialogFragment dialog = GameDialogFragment.newInstance(notifyMessage, false);
+                GameDialog dialog = GameDialog.newInstance(notifyMessage, false);
                 dialog.setTargetFragment(GameFragment.this, REQUEST_GameDialog);
                 dialog.show(manager, AFTER_GAME_DIALOG_Fragment);
 
@@ -314,7 +319,7 @@ public class GameFragment extends Fragment {
                 + String.valueOf(mMap.getAmoutGold());
 
         FragmentManager manager = getFragmentManager();
-        GameDialogFragment dialog = GameDialogFragment.newInstance(notifyMessage, DidWin);
+        GameDialog dialog = GameDialog.newInstance(notifyMessage, DidWin);
         dialog.setTargetFragment(GameFragment.this, REQUEST_GameDialog);
         dialog.show(manager, AFTER_GAME_DIALOG_Fragment);
 

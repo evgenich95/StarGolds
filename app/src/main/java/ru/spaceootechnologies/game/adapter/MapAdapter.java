@@ -1,4 +1,4 @@
-package ru.spaceootechnologies.game;
+package ru.spaceootechnologies.game.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -8,6 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
+
+import ru.spaceootechnologies.game.holder.MapItemViewHolder;
+import ru.spaceootechnologies.game.R;
+import ru.spaceootechnologies.game.entity.Coordinate;
+import ru.spaceootechnologies.game.ui.fragment.GameFragment;
 
 /**
  * Created by Anton on 18.12.2015.

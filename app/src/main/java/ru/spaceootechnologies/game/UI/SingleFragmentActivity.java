@@ -1,9 +1,11 @@
-package ru.spaceootechnologies.game;
+package ru.spaceootechnologies.game.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+
+import ru.spaceootechnologies.game.R;
 
 /**
  * Created by Anton on 17.12.2015.

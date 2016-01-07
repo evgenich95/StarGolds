@@ -1,4 +1,4 @@
-package ru.spaceootechnologies.game;
+package ru.spaceootechnologies.game.ui.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import ru.spaceootechnologies.game.R;
 
 /**
  * Created by Anton on 25.12.2015.
