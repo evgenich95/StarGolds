@@ -28,7 +28,7 @@
                     android:src="@drawable/robot"/>
                 <NumberPicker
                     android:id="@+id/numberPickerRobot"
-                    android:focusable="false"
+                    android:descendantFocusability="blocksDescendants"
                     android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -47,7 +47,7 @@
                     android:src="@drawable/pit"/>
                 <NumberPicker
                     android:id="@+id/numberPickerPit"
-                    android:focusable="false"
+                    android:descendantFocusability="blocksDescendants"
                     android:orientation="vertical"
                     android:gravity="center"
                     android:layout_gravity="center"
@@ -68,7 +68,7 @@
                     android:src="@drawable/gold"/>
                 <NumberPicker
                     android:id="@+id/numberPickerGold"
-                    android:focusable="false"
+                    android:descendantFocusability="blocksDescendants"
                     android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -87,7 +87,7 @@
                     android:src="@drawable/sizemap"/>
                 <NumberPicker
                     android:id="@+id/numberPickerMapSize"
-                    android:focusable="false"
+                    android:descendantFocusability="blocksDescendants"
                     android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
