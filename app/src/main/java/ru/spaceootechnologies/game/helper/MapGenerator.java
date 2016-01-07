@@ -1,14 +1,10 @@
 package ru.spaceootechnologies.game.helper;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.support.v4.content.ContextCompat;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.ResourceBundle;
 
 import ru.spaceootechnologies.game.R;
 import ru.spaceootechnologies.game.entity.Coordinate;
