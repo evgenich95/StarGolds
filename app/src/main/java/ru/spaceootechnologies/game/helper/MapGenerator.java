@@ -54,9 +54,6 @@ public class MapGenerator {
 
         ArrayList<Coordinate> placesOfRobots = new ArrayList<>();
         ArrayList<Coordinate> placesOfGold = new ArrayList<>();
-        ArrayList<Coordinate> placesForPit = new ArrayList<>();
-
-
 
         if (allCoordinates.size() <= 1) {
             return;
@@ -132,8 +129,6 @@ public class MapGenerator {
             Coordinate place = pitCanPlace.get(new Random().nextInt(pitCanPlace.size()));
             arrayMap[place.getRow()][place.getColumn()] = PitID;
 
-            placesForPit.add(place); // список где стоят ямы
-
             pitCanPlace.remove(place);
 
         }
@@ -156,7 +151,7 @@ public class MapGenerator {
 
         ArrayList<Coordinate> inStackCoordinate = new ArrayList<>();
         ArrayList<Coordinate> ShortWay = new ArrayList<>();
-        ArrayList<Coordinate> offsets = new ArrayList<Coordinate>(Map.neighborOffsets);
+        ArrayList<Coordinate> offsets = new ArrayList<>(Map.neighborOffsets);
 
         int marker = 0;
 

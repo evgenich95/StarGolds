@@ -35,9 +35,6 @@ public class TitleFragment extends Fragment {
 
     static class ViewFragmentHolder {
 
-        @Bind(R.id.imageGold) ImageView imageGold;
-        @Bind(R.id.imagePit) ImageView imagePit;
-        @Bind(R.id.imageRobot) ImageView imageRobot;
         @Bind(R.id.numberPickerRobot) NumberPicker numberPickerRobot;
         @Bind(R.id.numberPickerGold) NumberPicker numberPickerGold;
         @Bind(R.id.numberPickerPit) NumberPicker numberPickerPit;

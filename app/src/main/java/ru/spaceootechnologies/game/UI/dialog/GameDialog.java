@@ -25,7 +25,6 @@ public class GameDialog extends DialogFragment {
     private static final String DID_WIN = "booleanDidWin";
     public static final String PLAY_AGAIN = "booleanPlayAgain";
 
-    private TextView notify;
 
     public static GameDialog newInstance(String notifyMessage, boolean DidWin) {
 
@@ -50,7 +49,7 @@ public class GameDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
 
-
+        TextView notify;
         notify = new TextView(getActivity());
         notify.setText(getArguments().getString(NOTIFY_MESSAGE));
         notify.setGravity(Gravity.CENTER_HORIZONTAL);

@@ -56,7 +56,6 @@ public class GameFragment extends Fragment {
     private static final String Key_mMap_For_Parceble = "mMap in Parceble";
     private static final String Key_arrayIdsPatrons_For_Serializable = "ListPotron in Serializable";
 
-    private ArrayList<View> savedPatrons;
     private int[] savedIdsPatrons;
     private boolean restartGame;
 
@@ -186,10 +185,10 @@ public class GameFragment extends Fragment {
 
         Bundle args = this.getArguments();
 
-        this.mapSize = (int) args.getInt(TitleFragment.SIZE_MAP_KEY);
-        this.robotAmount = (int) args.getInt(TitleFragment.AMOUNT_ROBOTS_KEY);
-        this.goldAmount = (int) args.getInt(TitleFragment.AMOUNT_GOLD_KEY);
-        this.pitAmount = (int) args.getInt(TitleFragment.AMOUNT_PIT_KEY);
+        this.mapSize =  args.getInt(TitleFragment.SIZE_MAP_KEY);
+        this.robotAmount = args.getInt(TitleFragment.AMOUNT_ROBOTS_KEY);
+        this.goldAmount = args.getInt(TitleFragment.AMOUNT_GOLD_KEY);
+        this.pitAmount = args.getInt(TitleFragment.AMOUNT_PIT_KEY);
 
         getActivity().setTitle("");
         restartGame = false;
@@ -214,7 +213,7 @@ public class GameFragment extends Fragment {
         }
 
         outState.putParcelable(Key_mMap_For_Parceble, mMap);
-        // необходимо передавать именно массив ids, т.к. при серилизации списка объекты дуюлируются
+        // необходимо передавать именно массив ids, т.к. при серилизации списка объекты дублируются
         // --> не работает equals()
         // частые ошибки при Серилизации объекта List
         // outState.putSerializable(Key_arrayIdsPatrons_For_Serializable, arrayIdsPatrons);
@@ -264,16 +263,16 @@ public class GameFragment extends Fragment {
         goldCounter = (TextView) v.findViewById(R.id.textView_goldCounter);
         UpdateGoldStatus();
 
-        MenuItem goldMenuIcon = (MenuItem) menu.findItem(R.id.gold_counter);
+        MenuItem goldMenuIcon = menu.findItem(R.id.gold_counter);
 
         goldMenuIcon.setActionView(v);
 
-        MenuItem giveUp = (MenuItem) menu.findItem(R.id.give_up);
+        MenuItem giveUp = menu.findItem(R.id.give_up);
 
         giveUp.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                String notifyMessage = new String();
+                String notifyMessage;
                 notifyMessage = " Вы проиграли!!! :(\n";
                 notifyMessage += "Вы сделали: " + String.valueOf(mMap.getAmountPlayerSteps())
                         + " шагов\nВы собрали золота: " + String.valueOf(mMap.getGoldFound()) + "/"
@@ -297,7 +296,7 @@ public class GameFragment extends Fragment {
     private void UpdateGameStatus() {
         UpdateGoldStatus();
 
-        if (mMap.getAmoutGold() != mMap.getGoldFound() && mMap.isGameOver() != true)
+        if (mMap.getAmoutGold() != mMap.getGoldFound() && !mMap.isGameOver())
             return;
 
         String notifyMessage = new String();
@@ -308,7 +307,7 @@ public class GameFragment extends Fragment {
             notifyMessage = (" Вы выйграли!!!\n");
         }
 
-        if (mMap.isGameOver() == true) {
+        if (mMap.isGameOver()) {
             DidWin = false;
             notifyMessage = " Вы проиграли!!! :(\n";
 
@@ -325,7 +324,6 @@ public class GameFragment extends Fragment {
 
     }
 
-    @NonNull
     private void UpdateGoldStatus() {
         int GoldFound;
         int AllGold;

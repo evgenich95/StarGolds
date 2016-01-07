@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by Anton on 19.12.2015.
  */
-public class Coordinate extends Object implements Cloneable, Parcelable {
+public class Coordinate  implements Cloneable, Parcelable {
 
     private int row;
     private int column;
@@ -51,12 +51,6 @@ public class Coordinate extends Object implements Cloneable, Parcelable {
         column = y;
     }
 
-    public Coordinate() {
-        row = 0;
-        column = 0;
-
-    }
-
 
     public int getPositionInList(int[][] array) {
         return row * array[0].length + column;
@@ -66,9 +60,7 @@ public class Coordinate extends Object implements Cloneable, Parcelable {
         int column = positionInList % array[0].length;
         int row = (positionInList - column) / array[0].length;
 
-        Coordinate mCoordinate = new Coordinate(row, column);
-
-        return mCoordinate;
+        return new Coordinate(row, column);
     }
 
     public int getRow() {
@@ -98,9 +90,7 @@ public class Coordinate extends Object implements Cloneable, Parcelable {
 
     public Coordinate Plus(Coordinate right) {
 
-        Coordinate cord = new Coordinate(this.row + right.row, this.column + right.column);
-
-        return cord;
+        return new Coordinate(this.row + right.row, this.column + right.column);
 
     }
 
@@ -109,12 +99,5 @@ public class Coordinate extends Object implements Cloneable, Parcelable {
         return (rhs instanceof Coordinate) && (this.row == ((Coordinate) rhs).row)
                 && (this.column == (((Coordinate) rhs).column));
     }
-
-    public Coordinate MakeInversion() {
-        Coordinate cord = new Coordinate(this.getRow() * -1, this.getColumn() * -1);
-
-        return cord;
-    }
-
 
 }

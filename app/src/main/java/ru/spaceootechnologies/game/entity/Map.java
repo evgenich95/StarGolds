@@ -76,7 +76,7 @@ public class Map implements Parcelable {
         this.amountGold = in.readInt();
         this.goldFound = in.readInt();
         this.amountFreezenStep = in.readInt();
-        this.playerPosition = (Coordinate) in.readParcelable(Coordinate.class.getClassLoader());
+        this.playerPosition = in.readParcelable(Coordinate.class.getClassLoader());
         this.amountPlayerSteps = in.readInt();
         this.GameOver = (Boolean) in.readValue(null);
         this.frezenRobots = (HashMap<ArrayList<Coordinate>, Integer>) in.readSerializable();
@@ -108,7 +108,7 @@ public class Map implements Parcelable {
         this.GameOver = false;
 
         this.amountFreezenStep = 5;
-        this.frezenRobots = new HashMap<ArrayList<Coordinate>, Integer>();
+        this.frezenRobots = new HashMap<>();
 
     }
 
@@ -181,6 +181,7 @@ public class Map implements Parcelable {
         if (id == RobotId || id == PitID || id == GoldID || id == RobotISFreezed) {
             return false;
         }
+
         return true;
     }
 
@@ -200,7 +201,7 @@ public class Map implements Parcelable {
             target = way.get(0);
         }
 
-        if (target == null || RobotCanMoveTo(target) == false) { // если кратчайшего пути нет или по
+        if (target == null || !RobotCanMoveTo(target)) { // если кратчайшего пути нет или по
             // нему нельзя двигаться
             target = null;
             int numberOffset;
@@ -229,8 +230,7 @@ public class Map implements Parcelable {
     }
 
     public void MoveAllRobots() {
-        int[][] tempArray = Helper.CopyArray(arrayMap);
-        List<Coordinate> listRobots = new ArrayList<Coordinate>();
+        List<Coordinate> listRobots = new ArrayList<>();
 
 
         for (int i = 0; i < sizeMap; i++)

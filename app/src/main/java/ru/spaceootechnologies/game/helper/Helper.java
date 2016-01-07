@@ -10,11 +10,6 @@ import ru.spaceootechnologies.game.entity.Coordinate;
  */
  public  class Helper {
 
-    public static int getPositionFromXY(int[][]array, int row, int column)
-    {
-        return row*array[0].length+column;
-
-    }
     public static List<Integer> DetectUpdates(int[][]oldArray, int[][]newArray){
 
         List listUpdatesAdapter = new ArrayList();
