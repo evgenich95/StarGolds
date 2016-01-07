@@ -37,7 +37,7 @@ public class GameDialog extends DialogFragment {
         return fragment;
     }
 
-    private void SendResult(int resultCode, boolean playAgain) {
+    private void sendResult(int resultCode, boolean playAgain) {
         Intent intent = new Intent();
         intent.putExtra(PLAY_AGAIN, playAgain);
 
@@ -78,12 +78,12 @@ public class GameDialog extends DialogFragment {
                 .setPositiveButton(R.string.repeatGame, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        SendResult(getActivity().RESULT_OK, true);
+                        sendResult(getActivity().RESULT_OK, true);
                     }
                 }).setNegativeButton(R.string.exitGame, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        SendResult(getActivity().RESULT_OK, false);
+                        sendResult(getActivity().RESULT_OK, false);
                     }
                 }).create();
     }

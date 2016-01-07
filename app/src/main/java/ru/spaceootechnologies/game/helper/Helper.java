@@ -10,7 +10,7 @@ import ru.spaceootechnologies.game.entity.Coordinate;
  */
  public  class Helper {
 
-    public static List<Integer> DetectUpdates(int[][]oldArray, int[][]newArray){
+    public static List<Integer> detectUpdates(int[][]oldArray, int[][]newArray){
 
         List listUpdatesAdapter = new ArrayList();
         for (int i=0; i < oldArray.length; i++)
@@ -25,7 +25,7 @@ import ru.spaceootechnologies.game.entity.Coordinate;
         return listUpdatesAdapter;
     }
 
-    public static int[][] CopyArray ( int[][] fromArray){
+    public static int[][] copyArray(int[][] fromArray){
         int[][] inArray=new int[fromArray.length][fromArray[0].length];
         for (int i=0; i < fromArray.length; i++)
             System.arraycopy(fromArray[i], 0, inArray[i], 0, fromArray[i].length);

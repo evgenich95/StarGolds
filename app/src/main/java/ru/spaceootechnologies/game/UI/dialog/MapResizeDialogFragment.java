@@ -23,7 +23,7 @@ public class MapResizeDialogFragment extends DialogFragment {
 
     public static final String RECREATE_MAP = "RecreateMap";
 
-    private void SendResult(int resultCode, boolean playAgain) {
+    private void sendResult(int resultCode, boolean playAgain) {
         Intent intent = new Intent();
         intent.putExtra(RECREATE_MAP, playAgain);
 
@@ -57,13 +57,13 @@ public class MapResizeDialogFragment extends DialogFragment {
                 .setPositiveButton(R.string.reCreateMap, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        SendResult(getActivity().RESULT_OK, true);
+                        sendResult(getActivity().RESULT_OK, true);
                     }
                 }).setNegativeButton(R.string.changeMapProperties,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                SendResult(getActivity().RESULT_OK, false);
+                                sendResult(getActivity().RESULT_OK, false);
                             }
                         })
                 .create();

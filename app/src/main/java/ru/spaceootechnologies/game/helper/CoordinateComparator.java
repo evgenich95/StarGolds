@@ -16,7 +16,7 @@ public class CoordinateComparator implements Comparator<Coordinate> {
     }
 
 
-    private double  GetDistance (Coordinate from, Coordinate target){
+    private double getDistance(Coordinate from, Coordinate target){
 
         return  Math.hypot((from.getRow()-target.getRow()), (from.getColumn()-target.getColumn()));
     }
@@ -45,8 +45,8 @@ public class CoordinateComparator implements Comparator<Coordinate> {
     @Override
     public int compare(Coordinate lhs, Coordinate rhs) {
 
-        double left = GetDistance(playerPosition, lhs);
-        double right = GetDistance(playerPosition, rhs);
+        double left = getDistance(playerPosition, lhs);
+        double right = getDistance(playerPosition, rhs);
 
         if (left < right)
             return -1;
