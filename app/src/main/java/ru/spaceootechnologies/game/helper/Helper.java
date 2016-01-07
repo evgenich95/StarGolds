@@ -33,9 +33,4 @@ import ru.spaceootechnologies.game.entity.Coordinate;
         return inArray;
     }
 
-
-//    public static int  getXYFromPosition (int[][]array, int position){
-//        columnPosition = position % array[0].length;
-//        rowPosition = (position - columnPosition) / array[0].length;
-//    }
 }

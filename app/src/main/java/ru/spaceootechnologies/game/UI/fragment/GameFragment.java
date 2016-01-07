@@ -40,12 +40,7 @@ import ru.spaceootechnologies.game.ui.dialog.MapResizeDialogFragment;
  */
 public class GameFragment extends Fragment {
 
-    public static final int RobotId = 4;
-    public static final int RobotISFreezed = 5;
-    public static final int PlayerId = 1;
-    public static final int GoldID = 2;
-    public static final int PitID = 3;
-    public static final int EmptyId = 0;
+
 
     public static final int REQUEST_GameDialog = 0;
     public static final String AFTER_GAME_DIALOG_Fragment = "AfterGameDialogFragment";

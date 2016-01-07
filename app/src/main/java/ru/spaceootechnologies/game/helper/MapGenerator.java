@@ -14,12 +14,6 @@ import ru.spaceootechnologies.game.ui.fragment.GameFragment;
  */
 public class MapGenerator {
 
-    public static final int RobotId = GameFragment.RobotId;
-    public static final int PlayerId = GameFragment.PlayerId;
-    public static final int GoldID = GameFragment.GoldID;
-    public static final int PitID = GameFragment.PitID;
-    public static final int EmptyId = GameFragment.EmptyId;
-
     private Map mMap;
 
     private int mapSize;
@@ -63,7 +57,7 @@ public class MapGenerator {
         // Помещаем игрока
 
         Coordinate playerPosition = new Coordinate(mapSize / 2, mapSize / 2);
-        arrayMap[playerPosition.getRow()][playerPosition.getColumn()] = PlayerId;
+        arrayMap[playerPosition.getRow()][playerPosition.getColumn()] = Constants.PlayerId;
 
         allCoordinates.remove(playerPosition);
 
@@ -78,7 +72,7 @@ public class MapGenerator {
         for (int i = 0; i < goldAmount; i++) {
             Coordinate place = GoldtCanPlace.get(new Random().nextInt(GoldtCanPlace.size()));
 
-            arrayMap[place.getRow()][place.getColumn()] = GoldID;
+            arrayMap[place.getRow()][place.getColumn()] = Constants.GoldID;
             placesOfGold.add(place); // список где стоят золото
             GoldtCanPlace.remove(place);
         }
@@ -106,7 +100,7 @@ public class MapGenerator {
                 return; // построить карту нельзя
 
             Coordinate place = RobotCanPlace.get(new Random().nextInt(RobotCanPlace.size()));
-            arrayMap[place.getRow()][place.getColumn()] = RobotId;
+            arrayMap[place.getRow()][place.getColumn()] = Constants.RobotId;
 
             placesOfRobots.add(place); // список где стоят роботы
 
@@ -127,7 +121,7 @@ public class MapGenerator {
 
         for (int i = 0; i < pitAmount; i++) {
             Coordinate place = pitCanPlace.get(new Random().nextInt(pitCanPlace.size()));
-            arrayMap[place.getRow()][place.getColumn()] = PitID;
+            arrayMap[place.getRow()][place.getColumn()] = Constants.PitID;
 
             pitCanPlace.remove(place);
 
@@ -188,7 +182,7 @@ public class MapGenerator {
 
                 int point = arrayMap[nextPosition.getRow()][nextPosition.getColumn()];
 
-                if (point != EmptyId && point != IdTarget && point != IdFrom) {
+                if (point != Constants.EmptyId && point != IdTarget && point != IdFrom) {
                     continue;
                 }
 
@@ -230,7 +224,7 @@ public class MapGenerator {
 
                 int valueNextPosition = arrayMap[nextPosition.getRow()][nextPosition.getColumn()];
 
-                if (valueNextPosition != EmptyId && valueNextPosition != IdFrom
+                if (valueNextPosition != Constants.EmptyId && valueNextPosition != IdFrom
                         && valueNextPosition != IdTarget) {
                     continue;
                 }

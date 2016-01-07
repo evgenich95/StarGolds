@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import ru.spaceootechnologies.game.helper.Constants;
 import ru.spaceootechnologies.game.helper.CoordinateComparator;
 import ru.spaceootechnologies.game.helper.Helper;
 import ru.spaceootechnologies.game.helper.MapGenerator;
@@ -19,14 +20,6 @@ import android.os.Parcelable;
  * Created by Anton on 17.12.2015.
  */
 public class Map implements Parcelable {
-
-    public static final int RobotId = GameFragment.RobotId;
-    public static final int RobotISFreezed = GameFragment.RobotISFreezed;
-    public static final int PlayerId = GameFragment.PlayerId;
-    public static final int GoldID = GameFragment.GoldID;
-    public static final int PitID = GameFragment.PitID;
-    public static final int EmptyId = GameFragment.EmptyId;
-
 
     private int[][] arrayMap;
 
@@ -145,16 +138,16 @@ public class Map implements Parcelable {
             return false;
 
         int place = arrayMap[position.getRow()][position.getColumn()];
-        if (place != PitID && place != RobotISFreezed) {
-            if (place == GoldID)
+        if (place !=  Constants.PitID && place !=  Constants.RobotISFreezed) {
+            if (place ==  Constants.GoldID)
                 goldFound++;
 
-            arrayMap[playerPosition.getRow()][playerPosition.getColumn()] = EmptyId;
-            if (place == RobotId) {
+            arrayMap[playerPosition.getRow()][playerPosition.getColumn()] =  Constants.EmptyId;
+            if (place ==  Constants.RobotId) {
                 GameOver = true;
                 return false; // игра закончена, игрок ушёл со своей клитки, но роботы не двигаются
             }
-            arrayMap[position.getRow()][position.getColumn()] = PlayerId;
+            arrayMap[position.getRow()][position.getColumn()] =  Constants.PlayerId;
             playerPosition = (Coordinate) position.clone();
 
             amountPlayerSteps++;
@@ -178,7 +171,7 @@ public class Map implements Parcelable {
             return false;
 
         int id = arrayMap[target.getRow()][target.getColumn()];
-        if (id == RobotId || id == PitID || id == GoldID || id == RobotISFreezed) {
+        if (id ==  Constants.RobotId || id ==  Constants.PitID || id ==  Constants.GoldID || id ==  Constants.RobotISFreezed) {
             return false;
         }
 
@@ -220,8 +213,8 @@ public class Map implements Parcelable {
         if (target == null)
             return;
         // Перемещаем робота на новое место
-        arrayMap[coordinate.getRow()][coordinate.getColumn()] = EmptyId;
-        arrayMap[target.getRow()][target.getColumn()] = RobotId;
+        arrayMap[coordinate.getRow()][coordinate.getColumn()] =  Constants.EmptyId;
+        arrayMap[target.getRow()][target.getColumn()] =  Constants.RobotId;
 
         // Робот наступил на игрока - игра окончена должна быть
         if (target.equals(playerPosition)) {
@@ -235,7 +228,7 @@ public class Map implements Parcelable {
 
         for (int i = 0; i < sizeMap; i++)
             for (int k = 0; k < sizeMap; k++)
-                if (arrayMap[i][k] == RobotId)
+                if (arrayMap[i][k] ==  Constants.RobotId)
                     listRobots.add(new Coordinate(i, k));
 
         Collections.sort(listRobots, new CoordinateComparator(playerPosition)); // сортируем, чтобы
@@ -303,7 +296,7 @@ public class Map implements Parcelable {
             if (nextPosition.getColumn() < 0 || nextPosition.getColumn() >= sizeMap)
                 continue;
 
-            if (arrayMap[nextPosition.getRow()][nextPosition.getColumn()] == RobotId)
+            if (arrayMap[nextPosition.getRow()][nextPosition.getColumn()] ==  Constants.RobotId)
                 listRobotsForFreeze.add(nextPosition);
         }
 
@@ -315,7 +308,7 @@ public class Map implements Parcelable {
         frezenRobots.put(listRobotsForFreeze, amountFreezenStep);
 
         for (Coordinate cord : listRobotsForFreeze) {
-            arrayMap[cord.getRow()][cord.getColumn()] = RobotISFreezed;
+            arrayMap[cord.getRow()][cord.getColumn()] =  Constants.RobotISFreezed;
         }
 
 
@@ -327,7 +320,7 @@ public class Map implements Parcelable {
             return;
 
         for (Coordinate cord : listFreezenRobots) {
-            arrayMap[cord.getRow()][cord.getColumn()] = RobotId;
+            arrayMap[cord.getRow()][cord.getColumn()] =  Constants.RobotId;
         }
     }
 }

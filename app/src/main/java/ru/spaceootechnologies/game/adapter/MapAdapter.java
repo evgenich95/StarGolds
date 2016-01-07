@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import ru.spaceootechnologies.game.helper.Constants;
 import ru.spaceootechnologies.game.holder.MapItemViewHolder;
 import ru.spaceootechnologies.game.R;
 import ru.spaceootechnologies.game.entity.Coordinate;
@@ -18,13 +19,6 @@ import ru.spaceootechnologies.game.ui.fragment.GameFragment;
  * Created by Anton on 18.12.2015.
  */
 public class MapAdapter extends RecyclerView.Adapter<MapItemViewHolder> {
-
-    public static final int RobotId = GameFragment.RobotId;
-    public static final int RobotISFreezed = GameFragment.RobotISFreezed;
-    public static final int PlayerId = GameFragment.PlayerId;
-    public static final int GoldID = GameFragment.GoldID;
-    public static final int PitID = GameFragment.PitID;
-    public static final int EmptyId = GameFragment.EmptyId;
 
     private int sizeMap;
     private Context context;
@@ -58,33 +52,33 @@ public class MapAdapter extends RecyclerView.Adapter<MapItemViewHolder> {
         Coordinate pos = Coordinate.CoordinateForPositionInList(arrayMap, position);
 
         switch (arrayMap[pos.getRow()][pos.getColumn()]) {
-            case RobotId: // робот
+            case Constants.RobotId: // робот
                 holder.image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.robot));
                 holder.image
                         .setBackgroundColor(ContextCompat.getColor(context, R.color.colorWhite));
                 break;
-            case PlayerId: // игрок
+            case Constants.PlayerId: // игрок
                 holder.image
                         .setImageDrawable(ContextCompat.getDrawable(context, R.drawable.player));
                 holder.image
                         .setBackgroundColor(ContextCompat.getColor(context, R.color.colorWhite));
                 break;
-            case GoldID: // золото
+            case Constants.GoldID: // золото
                 holder.image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.gold));
                 holder.image
                         .setBackgroundColor(ContextCompat.getColor(context, R.color.colorWhite));
                 break;
-            case PitID: // яма
+            case Constants.PitID: // яма
                 holder.image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.pit));
                 holder.image
                         .setBackgroundColor(ContextCompat.getColor(context, R.color.colorWhite));
                 break;
-            case EmptyId: // проход
+            case Constants.EmptyId: // проход
                 holder.image.setImageDrawable(null);
                 holder.image
                         .setBackgroundColor(ContextCompat.getColor(context, R.color.colorWhite));
                 break;
-            case RobotISFreezed: // замороженный робот
+            case Constants.RobotISFreezed: // замороженный робот
                 holder.image.setImageDrawable(
                         ContextCompat.getDrawable(context, R.drawable.disabled_robot));
                 break;
@@ -99,11 +93,5 @@ public class MapAdapter extends RecyclerView.Adapter<MapItemViewHolder> {
         for (int item : listUpdates) {
             notifyItemChanged(item);
         }
-    }
-
-    public void UpdateMap(int[][] array) {
-        this.arrayMap = array;
-
-        notifyDataSetChanged();
     }
 }
